@@ -29,7 +29,7 @@ return new class extends Migration
             $table->foreignId('id_negara_mitra')->nullable() ->references('id')->on('daftar_negara');
         });
 
-        
+
     }
 
     /**
@@ -39,6 +39,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('bab1', function(Blueprint $table){
+            $table->dropForeign(['id_negara_mitra']);
+            $table->string('negara_mitra')->nullable();
+        });
         Schema::dropIfExists('daftar_negara');
     }
 };

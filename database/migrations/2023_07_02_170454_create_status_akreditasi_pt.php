@@ -39,6 +39,18 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('bab1', function(Blueprint $table){
+            $table->dropForeign(['id_status_akreditasi_institusi']);
+            $table->dropForeign(['id_status_akreditasi_institusi_mitra']);
+            $table->dropForeign(['id_akreditasi_prodi']);
+            $table->dropForeign(['id_akreditasi_prodi_mitra']);
+
+            $table->string('status_akreditasi_institusi')->nullable();
+            $table->string('status_akreditasi_institusi_mitra')->nullable();
+            $table->string('akreditasi_prodi')->nullable();
+            $table->string('akreditasi_prodi_mitra')->nullable();
+        });
         Schema::dropIfExists('status_akreditasi_pt');
     }
+
 };

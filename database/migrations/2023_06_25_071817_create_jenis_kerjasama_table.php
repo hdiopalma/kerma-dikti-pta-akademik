@@ -37,6 +37,14 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('bab4', function(Blueprint $table){
+            $table->dropForeign(['id_jenis_kerjasama']);
+            $table->string('jenis_kerjasama')->nullable();
+        });
+        Schema::table('proposal', function(Blueprint $table){
+            $table->dropForeign(['id_jenis_kerjasama']);
+            $table->string('jenis_kerjasama')->nullable();
+        });
         Schema::dropIfExists('jenis_kerjasama');
     }
 };

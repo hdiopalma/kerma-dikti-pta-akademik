@@ -32,6 +32,12 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('proposal', function(Blueprint $table){
+            $table->dropForeign(['id_status_berkas']);
+            $table->string('status_berkas')->nullable();
+        });
+
         Schema::dropIfExists('status_berkas');
+
     }
 };

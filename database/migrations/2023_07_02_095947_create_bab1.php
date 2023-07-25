@@ -31,13 +31,13 @@ return new class extends Migration
             $table->string('alamat_pt_mitra')->nullable();
             $table->string('ijin_operasional_pt_mitra')->nullable();
             $table->string('scan_ijin_operasional_pt_mitra')->nullable();
-            
+
             $table->string('scan_status_akreditasi_institusi_mitra')->nullable();
-            
+
             $table->string('peringkat_internasional_mitra')->nullable();
             $table->string('nama_prodi')->nullable();
             $table->string('nama_prodi_mitra')->nullable();
-            
+
             $table->string('scan_sk_akreditasi_prodi')->nullable();
             $table->string('scan_sk_akreditasi_prodi_mitra')->nullable();
             $table->string('scan_ijin_operasional_prodi')->nullable();
@@ -60,6 +60,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('proposal', function(Blueprint $table){
+            $table->dropForeign(['id_bab1']);
+            $table->string('bab1')->nullable();
+        });
         Schema::dropIfExists('bab1');
     }
 };

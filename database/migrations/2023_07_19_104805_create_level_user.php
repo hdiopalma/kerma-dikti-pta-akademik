@@ -32,6 +32,11 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('users', function(Blueprint $table){
+            $table->dropForeign(['id_level']);
+            $table->string('level')->nullable();
+        });
+
         Schema::dropIfExists('level_user');
     }
 };

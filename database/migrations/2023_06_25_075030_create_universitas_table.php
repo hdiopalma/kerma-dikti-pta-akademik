@@ -44,6 +44,14 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('proposal', function(Blueprint $table){
+            $table->dropForeign(['id_universitas']);
+            $table->string('nama_universitas')->nullable();
+        });
+        Schema::table('users', function(Blueprint $table){
+            $table->dropForeign(['id_universitas']);
+            $table->string('universitas')->nullable();
+        });
         Schema::dropIfExists('universitas');
     }
 };

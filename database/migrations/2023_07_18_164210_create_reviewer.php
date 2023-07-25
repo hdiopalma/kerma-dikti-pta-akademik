@@ -59,6 +59,36 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('reviewer_bab4', function(Blueprint $table){
+            $table->dropForeign(['id_reviewer']);
+        });
+        Schema::table('reviewer_bab3', function(Blueprint $table){
+            $table->dropForeign(['id_reviewer']);
+        });
+        Schema::table('reviewer_bab2', function(Blueprint $table){
+            $table->dropForeign(['id_reviewer']);
+        });
+        Schema::table('reviewer_bab1', function(Blueprint $table){
+            $table->dropForeign(['id_reviewer']);
+        });
+        Schema::table('proposal', function(Blueprint $table){
+            $table->dropForeign(['id_reviewer2']);
+            $table->dropColumn('id_reviewer2');
+            $table->string('reviewer2')->nullable();
+
+            $table->dropForeign(['id_reviewer1']);
+            $table->dropColumn('id_reviewer1');
+            $table->string('reviewer1')->nullable();
+        });
+        Schema::table('users', function(Blueprint $table){
+            $table->dropForeign(['id_reviewer']);
+            $table->dropColumn('id_reviewer');
+            $table->string('reviewer')->nullable();
+        });
         Schema::dropIfExists('reviewer');
+
+
+
+
     }
 };

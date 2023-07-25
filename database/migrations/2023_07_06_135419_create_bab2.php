@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bab2', function (Blueprint $table) {
-            
+
             $table->id();
 
             $table->longText('ringkasan_mou')->nullable();
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->longText('keberlanjutan_kerjsama')->nullable();
             $table->longText('hak_dan_kewajiban')->nullable();
             $table->enum('hak_tercantum', ['0', '1'])->nullable();
-            
+
             $table->timestamps();
         });
 
@@ -52,6 +52,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('proposal', function(Blueprint $table){
+            $table->dropForeign(['id_bab2']);
+            $table->string('bab2')->nullable();
+        });
         Schema::dropIfExists('bab2');
     }
 };
