@@ -48,6 +48,37 @@ class UsersSeeder extends Seeder
             ]);
         }
 
+        // Seed test universitas 2
+        $user = User::where('email', '=','univ2@univ.com')->first();
+        if($user === null){
+            $user = User::create([
+                'nama' => 'Universitas 2',
+                'email' => 'univ2@univ.com',
+                'password' => Hash::make('@Univ123'),
+                'status' => '1', // Active
+                'id_universitas' => 1, //'Universitas Gadjah Mada'
+                'id_reviewer' => null,
+                'id_level' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Admin universitas 1
+        $user = User::where('email', '=','admin@univ.com')->first();
+        if($user === null){
+            $user = User::create([
+                'nama' => 'Admin Universitas 1',
+                'email' => 'admin@univ.com',
+                'password' => Hash::make('@Admin123'),
+                'status' => '1', // Active
+                'id_universitas' => null,
+                'id_reviewer' => null,
+                'id_level' => 3,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
         // Seed test reviewer 1
         $user = User::where('email', '=','reviewer@reviewer.com')->first();
         if($user === null){
@@ -58,7 +89,7 @@ class UsersSeeder extends Seeder
                 'status' => '1', // Active
                 'id_universitas' => null,
                 'id_reviewer' => 1, //'Budi Santoso'
-                'id_level' => 3,
+                'id_level' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -74,7 +105,7 @@ class UsersSeeder extends Seeder
                 'status' => '1', // Active
                 'id_universitas' => null,
                 'id_reviewer' => 2, //'Budi Santoso'
-                'id_level' => 3,
+                'id_level' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

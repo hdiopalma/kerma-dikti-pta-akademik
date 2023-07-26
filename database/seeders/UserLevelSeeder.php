@@ -16,10 +16,11 @@ class UserLevelSeeder extends Seeder
     public function run()
     {
         $data = [
-                ['level' => '1', 'created_at' => now(), 'updated_at' => now()],
-                ['level' => '2', 'created_at' => now(), 'updated_at' => now()],
-                ['level' => '3', 'created_at' => now(), 'updated_at' => now()],
-                ['level' => '4', 'created_at' => now(), 'updated_at' => now()]
+                ['level' => 'Admin', 'created_at' => now(), 'updated_at' => now()],
+                ['level' => 'User', 'created_at' => now(), 'updated_at' => now()],
+                ['level' => 'Reviewer', 'created_at' => now(), 'updated_at' => now()],
+                ['level' => '4', 'created_at' => now(), 'updated_at' => now()],
+                ['level' => '5', 'created_at' => now(), 'updated_at' => now()],
             ];
 
             DB::table('level_user')->insert($data);

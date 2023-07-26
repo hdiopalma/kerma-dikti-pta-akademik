@@ -23,8 +23,15 @@
         <i class="fas fa-fw fa-cog"></i>
             <span>Data Universitas</span></a>
     </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('admin.proposal') }}">
+        <i class="fas fa-fw fa-cog"></i>
+            <span>Data Proposal</span></a>
+    </li>
+
     @endif
-    
+
     <!--
     @if(auth()->user()->id_level == 1)
     <li class="nav-item active">
