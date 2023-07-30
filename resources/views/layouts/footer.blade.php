@@ -1,7 +1,6 @@
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy;2023 Direktorat Jenderal Pendidikan Tinggi, Riset dan Teknologi </span>
-        </div>
-    </div>
+<footer class="main-footer">
+    <strong
+        >Copyright &copy; 2023
+        <a href="https://dikti.kemdikbud.go.id/">Direktorat Jenderal Pendidikan Tinggi, Riset dan Teknologi</a>.</strong
+    >
 </footer>
