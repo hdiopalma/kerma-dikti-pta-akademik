@@ -24,8 +24,6 @@
 
     <div class="card-body">
 
-        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#myModalNorm">+ Pengajuan Baru</button>
-
         <div class="form-row align-items-center">
 
             <table border="0" width="100%" class="">
@@ -100,7 +98,7 @@
                         <td>{{ $row->status_pengisian }}</td>
                         <td>{{ $row->statusBerkas->status }}</td>
                         <td>
-                            <a href="{{ route('proposal.viewBab1', encrypt($row->id))}}" class="btn btn-success btn-sm">View</a>
+                            <a href="{{ route('admin.proposal.show', encrypt($row->id))}}" class="btn btn-success btn-sm">View</a>
                             @if($row->id_status_berkas=='5')
                             <a href="{{ route('proposal.editBab1', encrypt($row->id))}}" class="btn btn-warning btn-sm">Edit</a>
                             <a href="#"  id="ajukanProposal" data-id = "{{ route('proposal.ajukan', encrypt($row->id))}}" class="btn btn-primary btn-sm">Ajukan</a>

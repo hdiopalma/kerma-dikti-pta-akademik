@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Proposal;
+use App\Models\bab1;
+use App\Models\bab2;
+use App\Models\bab3;
+use App\Models\bab4;
+use App\Models\Reviewer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -47,9 +52,22 @@ class ProposalController extends Controller
      * @param  \App\Models\Models\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function show(Proposal $proposal)
+    public function show(Proposal $proposal, $id)
     {
-        //
+        $proposal = Proposal::find(decrypt($id));
+        $reviewer = Reviewer::all();
+        $bab_proposal = [
+            'bab1' => bab1::where('id', $proposal->id_bab1)->first(),
+            'bab2' => bab2::where('id', $proposal->id_bab2)->first(),
+            'bab3' => bab3::where('id', $proposal->id_bab3)->first(),
+            'bab4' => bab4::where('id', $proposal->id_bab4)->first(),
+        ];
+        //return view('admin.proposal.show', ['proposal' => $proposal]);
+        return response()->json([
+            'proposal' => $proposal,
+            'reviewer' => $reviewer,
+            'bab_proposal' => $bab_proposal,
+        ]);
     }
 
     /**

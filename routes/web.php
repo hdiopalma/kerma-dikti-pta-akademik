@@ -97,22 +97,7 @@ Route::middleware('auth')->group(function(){
         Route::controller(AdminProposalController::class)->prefix('proposal')->group(function(){
             Route::get('','index')->name('admin.proposal');
             Route::get('/{id}','showPaginationAjax')->name('admin.proposal.showAjax');
-            Route::get('viewBab1/{id}','viewbab1')->name('admin.proposal.viewBab1');
-            Route::get('viewBab2/{id}','viewbab2')->name('admin.proposal.viewBab2');
-            Route::get('viewBab3/{id}','viewbab3')->name('admin.proposal.viewBab3');
-            Route::get('viewBab4/{id}','viewbab4')->name('admin.proposal.viewBab4');
-            Route::get('editBab1/{id}','editBab1')->name('admin.proposal.editBab1');
-            Route::post('editBab1','updateBab1')->name('admin.proposal.editBab1.tambah.update');
-            Route::get('editBab2/{id}','editBab2')->name('admin.proposal.editBab2');
-            Route::post('editBab2','updateBab2')->name('admin.proposal.editBab2.tambah.update');
-            Route::get('editBab3/{id}','editBab3')->name('admin.proposal.editBab3');
-            Route::post('editBab3','updateBab3')->name('admin.proposal.editBab3.tambah.update');
-            Route::get('editBab4/{id}','editBab4')->name('admin.proposal.editBab4');
-            Route::post('editBab4','updateBab4')->name('admin.proposal.editBab4.tambah.update');
-            Route::get('hapus/{id}','hapusProposal')->name('admin.proposal.hapus');
-            Route::get('ajukan/{id}','ajukanProposal')->name('admin.proposal.ajukan');
-            Route::post('editJudul','updateJudul')->name('admin.proposal.tambah.updateJudul');
-            Route::post('cariProposal','cariProposal')->name('admin.proposal.cari');
+            Route::get('show/{id}','show')->name('admin.proposal.show');
         });
         //Admin Proposal En
     });
