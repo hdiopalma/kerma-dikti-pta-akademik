@@ -38,4 +38,8 @@ class proposal extends Model
     public function statusBerkas(){
         return $this->belongsTo(statusBerkas::class, 'id_status_berkas');
     }
+
+    public function universitas(){
+        return $this->belongsTo(Universitas::class, 'id_universitas');
+    }
 }

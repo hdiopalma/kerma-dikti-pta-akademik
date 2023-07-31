@@ -16,4 +16,8 @@ class Universitas extends Model
     public function User(){
         return $this->hasMany(User::class,'id_universitas');
     }
+
+    public function proposal(){
+        return $this->hasMany(proposal::class,'id_universitas');
+    }
 }
