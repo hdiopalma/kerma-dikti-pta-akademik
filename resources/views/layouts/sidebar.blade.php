@@ -1,12 +1,12 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="index3.html" class="brand-link">
+    <a href="index3.html" class="brand-link" style="text-decoration: none">
         <img
             src="{{ asset('Login_Dikti_files/logo_ristekdikti.png') }}"
             alt="RISTEKDIKTI Logo"
             class="brand-image img-circle elevation-3"
             style="opacity: 0.8"
         />
-        <span class="brand-text font-weight-light"
+        <span class="brand-text font-weight-bold"
             >@if(auth()->user()->id_level == '1') Admin @endif
             @if(auth()->user()->id_level == '2') Universitas @endif</span
         >

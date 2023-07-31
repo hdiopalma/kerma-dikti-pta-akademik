@@ -54,20 +54,19 @@ class ProposalController extends Controller
      */
     public function show(Proposal $proposal, $id)
     {
-        $proposal = Proposal::find(decrypt($id));
+        $proposal = Proposal::find(decrypt($id))->with(
+            'statusBerkas',
+            'universitas',
+            'kerjasama',
+            'bab1',
+            'bab2',
+            'bab3',
+            'bab4',
+            )->first();
+
         $reviewer = Reviewer::all();
-        $bab_proposal = [
-            'bab1' => bab1::where('id', $proposal->id_bab1)->first(),
-            'bab2' => bab2::where('id', $proposal->id_bab2)->first(),
-            'bab3' => bab3::where('id', $proposal->id_bab3)->first(),
-            'bab4' => bab4::where('id', $proposal->id_bab4)->first(),
-        ];
-        //return view('admin.proposal.show', ['proposal' => $proposal]);
-        return response()->json([
-            'proposal' => $proposal,
-            'reviewer' => $reviewer,
-            'bab_proposal' => $bab_proposal,
-        ]);
+        //return response()->json(['proposal' => $proposal,'reviewer' => $reviewer]);
+        return view('admin.proposal.show', ['proposal' => $proposal,'reviewer' => $reviewer]);
     }
 
     /**
