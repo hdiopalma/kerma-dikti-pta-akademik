@@ -13,6 +13,7 @@ export default defineConfig({
         alias: {
             '~font-awesome': path.resolve(__dirname, 'node_modules/@fortawesome/fontawesome-free/'),
             '~admin-lte': path.resolve(__dirname, 'node_modules/admin-lte/'),
+            
         },
     }
 });
