@@ -9,14 +9,14 @@ use App\Models\bab4;
 use App\Models\Reviewer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Datatables\ProposalDatatable;
 
 class ProposalController extends Controller
 {
 
-    public function index()
+    public function index(ProposalDatatable $datatable)
     {
-        $proposal = Proposal::all()->sortByDesc('id')->take(5);
-        return view('admin.proposal.index', ['proposal' => $proposal, 'lastPagination'=>5]);
+        return $datatable->render('admin.proposal.index');
     }
 
     public function showPaginationAjax($id)

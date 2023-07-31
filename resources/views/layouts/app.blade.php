@@ -7,7 +7,9 @@
         <title>@yield('title') | {{ config('app.name', 'Apliksasi Izin Kerjasama DIKTI') }}</title>
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        <!-- Custom css -->
+        @stack('styles')
         <link href="{{ asset('Login_Dikti_files/logo_ristekdikti.png') }}" rel="icon" type="image/png">
     </head>
     <body class="hold-transition sidebar-mini">
@@ -28,7 +30,7 @@
             </div>
             @include('layouts.footer')
         </div>
-        @yield('js')
+        @stack('scripts')
 
     </body>
 </html>
