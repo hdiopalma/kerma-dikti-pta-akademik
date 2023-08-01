@@ -54,7 +54,7 @@ class ProposalController extends Controller
      */
     public function show(Proposal $proposal, $id)
     {
-        $proposal = Proposal::find(decrypt($id))->with(
+        $proposal = Proposal::with(
             'statusBerkas',
             'universitas',
             'kerjasama',
@@ -62,7 +62,7 @@ class ProposalController extends Controller
             'bab2',
             'bab3',
             'bab4',
-            )->first();
+            )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
         //return response()->json(['proposal' => $proposal,'reviewer' => $reviewer]);
@@ -71,9 +71,9 @@ class ProposalController extends Controller
 
     public function viewbab1(Proposal $proposal, $id)
     {
-        $proposal = Proposal::find(decrypt($id))->with(
+        $proposal = Proposal::with(
             'bab1',
-            )->first();
+            )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
         //return response()->json(['proposal' => $proposal,'reviewer' => $reviewer]);
@@ -82,9 +82,9 @@ class ProposalController extends Controller
 
     public function viewbab2(Proposal $proposal, $id)
     {
-        $proposal = Proposal::find(decrypt($id))->with(
+        $proposal = Proposal::with(
             'bab2',
-            )->first();
+            )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
         return response()->json(['proposal' => $proposal]);
@@ -93,9 +93,9 @@ class ProposalController extends Controller
 
     public function viewbab3(Proposal $proposal, $id)
     {
-        $proposal = Proposal::find(decrypt($id))->with(
+        $proposal = Proposal::with(
             'bab3',
-            )->first();
+            )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
         return response()->json(['proposal' => $proposal]);
@@ -104,9 +104,9 @@ class ProposalController extends Controller
 
     public function viewbab4(Proposal $proposal, $id)
     {
-        $proposal = Proposal::find(decrypt($id))->with(
+        $proposal = Proposal::with(
             'bab4',
-            )->first();
+            )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
         return response()->json(['proposal' => $proposal]);
