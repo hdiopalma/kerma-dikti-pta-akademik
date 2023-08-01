@@ -69,6 +69,50 @@ class ProposalController extends Controller
         return view('admin.proposal.show', ['proposal' => $proposal,'reviewer' => $reviewer]);
     }
 
+    public function viewbab1(Proposal $proposal, $id)
+    {
+        $proposal = Proposal::find(decrypt($id))->with(
+            'bab1',
+            )->first();
+
+        $reviewer = Reviewer::all();
+        //return response()->json(['proposal' => $proposal,'reviewer' => $reviewer]);
+        return view('admin.proposal.viewBab1', ['proposal' => $proposal]);
+    }
+
+    public function viewbab2(Proposal $proposal, $id)
+    {
+        $proposal = Proposal::find(decrypt($id))->with(
+            'bab2',
+            )->first();
+
+        $reviewer = Reviewer::all();
+        return response()->json(['proposal' => $proposal]);
+        //return view('admin.proposal.viewBab2', ['proposal' => $proposal]);
+    }
+
+    public function viewbab3(Proposal $proposal, $id)
+    {
+        $proposal = Proposal::find(decrypt($id))->with(
+            'bab3',
+            )->first();
+
+        $reviewer = Reviewer::all();
+        return response()->json(['proposal' => $proposal]);
+        //return view('admin.proposal.viewBab3', ['proposal' => $proposal]);
+    }
+
+    public function viewbab4(Proposal $proposal, $id)
+    {
+        $proposal = Proposal::find(decrypt($id))->with(
+            'bab4',
+            )->first();
+
+        $reviewer = Reviewer::all();
+        return response()->json(['proposal' => $proposal]);
+        //return view('admin.proposal.viewBab4', ['proposal' => $proposal]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

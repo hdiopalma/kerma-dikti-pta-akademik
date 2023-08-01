@@ -98,6 +98,11 @@ Route::middleware('auth')->group(function(){
             Route::get('','index')->name('admin.proposal');
             Route::get('/{id}','showPaginationAjax')->name('admin.proposal.showAjax');
             Route::get('show/{id}','show')->name('admin.proposal.show');
+            Route::get('viewBab1/{id}','viewbab1')->name('admin.proposal.viewBab1');
+            Route::get('viewBab2/{id}','viewbab2')->name('admin.proposal.viewBab2');
+            Route::get('viewBab3/{id}','viewbab3')->name('admin.proposal.viewBab3');
+            Route::get('viewBab4/{id}','viewbab4')->name('admin.proposal.viewBab4');
+
         });
         //Admin Proposal En
     });

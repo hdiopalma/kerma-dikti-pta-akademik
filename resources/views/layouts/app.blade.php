@@ -19,7 +19,7 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <div class="container-fluid">
-                        <h1>@yield('title')</h1>
+                        <h1>@yield('header-title')</h1>
                     </div>
                 </section>
                 <section class="content">
