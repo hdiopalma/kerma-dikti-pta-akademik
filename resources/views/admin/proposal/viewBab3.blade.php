@@ -1,7 +1,7 @@
 @extends('layouts.app') 
 @section('title') 
     @php
-        $title = 'Bab 2 - ' . $proposal->judul;
+        $title = 'Bab 3 - ' . $proposal->judul;
         $characterLimit = 50;
 
         if (strlen($title) > $characterLimit) {
