@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header bg-primary">
             <h3 class="card-title" style="margin: 2px">
-                BAB1 | PROFIL PERGURUAN TINGGI
+                BAB 1 | PROFIL PERGURUAN TINGGI
             </h3>
         </div>
 

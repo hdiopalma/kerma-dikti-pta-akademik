@@ -33,7 +33,7 @@
                             <p>Profil Perguruan Tinggi</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-dolly-flatbed"></i>
+                            <i class="fas fa-university"></i>
                         </div>
                         <a
                             href="{{ route('admin.proposal.viewBab1', encrypt($proposal->id)) }}"
@@ -53,7 +53,7 @@
                             <p>Dokumen Kerjasama</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-user-tag"></i>
+                            <i class="fas fa-folder-open"></i>
                         </div>
                         <a
                             href="{{ route('admin.proposal.viewBab2', encrypt($proposal->id)) }}"
@@ -73,7 +73,7 @@
                             <p>Kesiapan Sumber Daya</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-file-download"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <a
                             href="{{ route('admin.proposal.viewBab3', encrypt($proposal->id)) }}"

@@ -90,8 +90,8 @@ class ProposalController extends Controller
             'bab2',
             )->find(decrypt($id));
 
-        return response()->json(['proposal' => $proposal, 'bab' => 2]);
-        //return view('admin.proposal.viewBab2', ['proposal' => $proposal]);
+        //return response()->json(['proposal' => $proposal, 'bab' => 2]);
+        return view('admin.proposal.viewBab2', ['proposal' => $proposal,'bab' => 2]);
     }
 
     public function viewbab3(Proposal $proposal, $id)
@@ -101,8 +101,8 @@ class ProposalController extends Controller
             )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
-        return response()->json(['proposal' => $proposal, 'bab' => 3]);
-        //return view('admin.proposal.viewBab3', ['proposal' => $proposal]);
+        //return response()->json(['proposal' => $proposal, 'bab' => 3]);
+        return view('admin.proposal.viewBab3', ['proposal' => $proposal,'bab' => 3]);
     }
 
     public function viewbab4(Proposal $proposal, $id)
@@ -112,8 +112,8 @@ class ProposalController extends Controller
             )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
-        return response()->json(['proposal' => $proposal, 'bab' => 4]);
-        //return view('admin.proposal.viewBab4', ['proposal' => $proposal]);
+        //return response()->json(['proposal' => $proposal, 'bab' => 4]);
+        return view('admin.proposal.viewBab4', ['proposal' => $proposal,'bab' => 4]);
     }
 
     /**
