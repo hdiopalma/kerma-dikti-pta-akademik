@@ -18,5 +18,9 @@ class bab4 extends Model
     public function barang(){
         return $this->hasOne(proposal::class,'id_bab4');
     }
+
+    public function kerjasama(){
+        return $this->belongsTo(kerjasama::class, 'id_jenis_kerjasama');
+    }
    
 }

@@ -108,7 +108,7 @@ class ProposalController extends Controller
     public function viewbab4(Proposal $proposal, $id)
     {
         $proposal = Proposal::with(
-            'bab4',
+            'bab4', 'bab4.kerjasama',
             )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
