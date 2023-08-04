@@ -1,6 +1,7 @@
 <div class="col-12 col-sm-12 col-md-12">
     <div class="card card-dark">
-        <div class="card-header" role="button" data-card-widget="collapse">
+        <!-- card-header 
+        <div class="card-header bg-primary" role="button" data-card-widget="collapse">
             <h3 class="card-title" style="margin: 2px">
                 <i class="fas fa-edit"></i> Navigasi Bab
             </h3>
@@ -21,11 +22,12 @@
                 </button>
             </div>
         </div>
-        <div class="card-body">
+        -->
+        <div class="card-body pb-0">
             <div class="row row d-flex">
                 <div class="clearfix hidden-md-up"></div>
                 <div class="p-2 col-12 col-sm-6 col-md-3">
-                    <div class="small-box bg-purple">
+                    <div class="small-box {{ isset($bab) && $bab == 1 ? 'bg-warning' : 'bg-primary' }}">
                         <div class="inner">
                             <h3>BAB 1</h3>
                             <p>Profil Perguruan Tinggi</p>
@@ -45,7 +47,7 @@
                     </div>
                 </div>
                 <div class="p-2 col-12 col-sm-6 col-md-3">
-                    <div class="small-box bg-purple">
+                    <div class="small-box {{ isset($bab) && $bab == 2 ? 'bg-warning' : 'bg-primary' }}">
                         <div class="inner">
                             <h3>BAB 2</h3>
                             <p>Dokumen Kerjasama</p>
@@ -65,7 +67,7 @@
                     </div>
                 </div>
                 <div class="p-2 col-12 col-sm-6 col-md-3">
-                    <div class="small-box bg-purple">
+                    <div class="small-box {{ isset($bab) && $bab == 3 ? 'bg-warning' : 'bg-primary' }}">
                         <div class="inner">
                             <h3>BAB 3</h3>
                             <p>Kesiapan Sumber Daya</p>
@@ -85,7 +87,7 @@
                     </div>
                 </div>
                 <div class="p-2 col-12 col-sm-6 col-md-3">
-                    <div class="small-box bg-purple">
+                    <div class="small-box {{ isset($bab) && $bab == 4 ? 'bg-warning' : 'bg-primary' }}">
                         <div class="inner">
                             <h3>BAB 4</h3>
                             <p>Rencana Pelaksanaan Kerjasama</p>
@@ -105,8 +107,8 @@
                     </div>
                 </div>
             </div>
-            <div class="clearfix hidden-md-up" style="margin-top: 0px"></div>
-            <hr class="mt-0" />
+            
+            
         </div>
     </div>
 </div>

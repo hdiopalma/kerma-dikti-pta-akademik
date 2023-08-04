@@ -1,7 +1,10 @@
+@import "./custom.scss";
+
+/*bootstrap 5 scss*/
+@import "~bootstrap/scss/bootstrap.scss";
+/*admin lte css*/
 @import "~admin-lte/dist/css/adminlte.min.css";
 /*font awesome css*/
 @import "~font-awesome/css/all.min.css";
-/*bootstrap 5 scss*/
-@import "~bootstrap/scss/bootstrap.scss";
 /*datatables css*/
 @import "~datatables/css/dataTables.bootstrap5.min.css";

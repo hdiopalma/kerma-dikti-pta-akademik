@@ -103,6 +103,9 @@ Route::middleware('auth')->group(function(){
             Route::get('viewBab3/{id}','viewbab3')->name('admin.proposal.viewBab3');
             Route::get('viewBab4/{id}','viewbab4')->name('admin.proposal.viewBab4');
 
+            //Download path, not yet implemented, placeholder
+            Route::get('/download/{id}','download')->name('admin.proposal.download');
+
         });
         //Admin Proposal En
     });

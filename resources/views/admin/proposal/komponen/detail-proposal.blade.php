@@ -1,21 +1,21 @@
 <div class="col-12 col-sm-12 col-md-12">
-        <div class="card card-primary">
-            <div class="card-header" role="button" data-card-widget="collapse">
-                <h3 class="card-title" style="margin: 2px">Detail Kerjasama (no. berkas : {{$proposal->id}})</h3>
+        <div class="card">
+            <div class="card-header bg-primary" role="button" data-card-widget="collapse">
+                <h3 class="card-title" style="margin: 2px"><b>Detail Kerjasama </b>(#{{$proposal->id}})</h3>
                 <div class="card-tools">
                     <button
                         type="button"
                         class="btn btn-tool"
                         data-card-widget="collapse"
                     >
-                        <i class="fas fa-minus"></i>
+                        <i class="fas fa-minus text-white"></i>
                     </button>
                     <button
                         type="button"
                         class="btn btn-tool"
                         data-card-widget="remove"
                     >
-                        <i class="fas fa-times"></i>
+                        <i class="fas fa-times text-white"></i>
                     </button>
                 </div>
             </div>

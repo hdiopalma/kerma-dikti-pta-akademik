@@ -58,10 +58,10 @@ class ProposalController extends Controller
             'statusBerkas',
             'universitas',
             'kerjasama',
-            'bab1',
-            'bab2',
-            'bab3',
-            'bab4',
+            //'bab1',
+            //'bab2',
+            //'bab3',
+            //'bab4',
             )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
@@ -73,11 +73,15 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::with(
             'bab1',
+            'bab1.status_akreditasi_institusi',
+            'bab1.status_akreditasi_institusi_mitra',
+            'bab1.status_akreditasi_prodi',
+            'bab1.status_akreditasi_prodi_mitra',
+            'bab1.negara_mitra',
             )->find(decrypt($id));
-
-        $reviewer = Reviewer::all();
-        //return response()->json(['proposal' => $proposal,'reviewer' => $reviewer]);
-        return view('admin.proposal.viewBab1', ['proposal' => $proposal]);
+        //$reviewer = Reviewer::all();
+        //return response()->json(['proposal' => $proposal]);
+        return view('admin.proposal.viewBab1', ['proposal' => $proposal,'bab' => 1]);
     }
 
     public function viewbab2(Proposal $proposal, $id)
@@ -86,8 +90,7 @@ class ProposalController extends Controller
             'bab2',
             )->find(decrypt($id));
 
-        $reviewer = Reviewer::all();
-        return response()->json(['proposal' => $proposal]);
+        return response()->json(['proposal' => $proposal, 'bab' => 2]);
         //return view('admin.proposal.viewBab2', ['proposal' => $proposal]);
     }
 
@@ -98,7 +101,7 @@ class ProposalController extends Controller
             )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
-        return response()->json(['proposal' => $proposal]);
+        return response()->json(['proposal' => $proposal, 'bab' => 3]);
         //return view('admin.proposal.viewBab3', ['proposal' => $proposal]);
     }
 
@@ -109,7 +112,7 @@ class ProposalController extends Controller
             )->find(decrypt($id));
 
         $reviewer = Reviewer::all();
-        return response()->json(['proposal' => $proposal]);
+        return response()->json(['proposal' => $proposal, 'bab' => 4]);
         //return view('admin.proposal.viewBab4', ['proposal' => $proposal]);
     }
 
@@ -145,5 +148,11 @@ class ProposalController extends Controller
     public function destroy(Proposal $proposal)
     {
         //
+    }
+
+    public function download($path)
+    {
+        $path = decrypt($path);
+        return response()->download(storage_path('app/public/' . $path));
     }
 }

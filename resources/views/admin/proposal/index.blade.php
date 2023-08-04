@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title','Daftar Permohonan Kerja Sama')
+@section('header-title', 'Daftar Proposal')
 @section('contents')
 <div class="card card-dark card-tabs">
     <div class="card-header p-0 pt-1">

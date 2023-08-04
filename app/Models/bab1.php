@@ -29,10 +29,12 @@ class bab1 extends Model
         return $this->belongsTo(statusAkreditasi::class, 'id_status_akreditasi_institusi_mitra');
     }
     public function status_akreditasi_prodi(){
-        return $this->belongsTo(statusAkreditasi::class, 'id_status_akreditasi_prodi');
+        //return $this->belongsTo(statusAkreditasi::class, 'id_status_akreditasi_prodi');
+        return $this->belongsTo(statusAkreditasi::class, 'id_akreditasi_prodi');
     }
     public function status_akreditasi_prodi_mitra(){
-        return $this->belongsTo(statusAkreditasi::class, 'id_status_akreditasi_prodi_mitra');
+        //return $this->belongsTo(statusAkreditasi::class, 'id_status_akreditasi_prodi_mitra');
+        return $this->belongsTo(statusAkreditasi::class, 'id_akreditasi_prodi_mitra');
     }
     public function negara_mitra(){
         return $this->belongsTo(negara::class, 'id_negara_mitra');

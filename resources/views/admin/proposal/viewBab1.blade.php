@@ -1,6 +1,22 @@
 @extends('layouts.app') 
-@section('title', 'Proposal - '. $proposal->judul) 
-@section('header-title', 'Proposal')
+@section('title') 
+    @php
+        $title = 'Bab 1 - ' . $proposal->judul;
+        $characterLimit = 50;
+
+        if (strlen($title) > $characterLimit) {
+            $title = substr($title, 0, $characterLimit) . ' ...';
+        }
+    @endphp
+
+    {{ $title }}
+@endsection
+@section('header-title')
+@php
+    $title = $proposal->judul;
+@endphp
+    {{ $title }}
+@endsection
 @section('contents')
 <div class="row">
     @include('admin.proposal.komponen.navigasi-bab')
