@@ -6,9 +6,7 @@
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus text-white"></i>
                 </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times text-white"></i>
-                </button>
+
             </div>
         </div>
 
