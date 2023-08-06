@@ -12,13 +12,24 @@
             </div>
         </div>
         <div class="card-body">
-            <h4>Verifikator</h4>
-            <hr>
-            
+            <h5 class="text-bold">Status Berkas:  <span class="card-text text-red text-bold">{{$proposal->statusBerkas->status}}</span></h5>
         </div>
         <div class="card-body">
-            <h4>Reviewer</h4>
+            <h5>Ajukan Reviewer 1</h5>
             <hr>
+            {{ $reviewer1Table->table(['id' => 'reviewer1Table', 'class' => 'table table-bordered table-hover table-striped']) }}
         </div>
+        <hr>
+        <div class="card-body">
+            <h5>Ajukan Reviewer 2</h5>
+            <hr>
+            {{ $reviewer2Table->table(['id' => 'reviewer2Table', 'class' => 'table table-bordered table-hover table-striped']) }}
+        </div>
+        
     </div>
 </div>
+
+@push('scripts')
+    {{ $reviewer1Table->scripts(attributes: ['type' => 'module']) }}
+    {{ $reviewer2Table->scripts(attributes: ['type' => 'module']) }}
+@endpush

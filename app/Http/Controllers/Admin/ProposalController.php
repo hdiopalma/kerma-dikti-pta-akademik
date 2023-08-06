@@ -9,7 +9,12 @@ use App\Models\bab4;
 use App\Models\Reviewer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Datatables\ProposalDatatable;
+use Yajra\DataTables\Facades\DataTables;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 
 class ProposalController extends Controller
 {
@@ -58,16 +63,15 @@ class ProposalController extends Controller
             'statusBerkas',
             'universitas',
             'kerjasama',
-            //'bab1',
-            //'bab2',
-            //'bab3',
-            //'bab4',
             )->find(decrypt($id));
 
-        $reviewer = Reviewer::all();
-        //return response()->json(['proposal' => $proposal,'reviewer' => $reviewer]);
-        return view('admin.proposal.show', ['proposal' => $proposal,'reviewer' => $reviewer]);
+        $reviewer1Table = $this->reviewer1Tabel(app(HtmlBuilder::class));
+        $reviewer2Table = $this->reviewer2Tabel(app(HtmlBuilder::class));
+        //return response()->json([compact('proposal', 'reviewer1Table')]);
+        return view('admin.proposal.show', compact('proposal', 'reviewer1Table','reviewer2Table'));
     }
+
+
 
     public function viewbab1(Proposal $proposal, $id)
     {
@@ -149,10 +153,108 @@ class ProposalController extends Controller
     {
         //
     }
-
+    
     public function download($path)
     {
         $path = decrypt($path);
         return response()->download(storage_path('app/public/' . $path));
+    }
+
+    public function ajukanReviewer1(Request $request, $id)
+    {
+        $proposal = Proposal::find(decrypt($id));
+        $proposal->reviewer1 = $request->reviewer1;
+        $proposal->save();
+        return redirect()->back()->with('success', 'Reviewer 1 berhasil diajukan');
+    }
+
+    public function ajukanReviewer2(Request $request, $id)
+    {
+        $proposal = Proposal::find(decrypt($id));
+        $proposal->reviewer2 = $request->reviewer2;
+        $proposal->save();
+        return redirect()->back()->with('success', 'Reviewer 2 berhasil diajukan');
+    }
+
+    public function reviewer1TabelJSON()
+    {
+        if(request()->ajax())
+        {
+            $reviewer = Reviewer::all();
+            $table = DataTables::of($reviewer);
+            $table->addColumn('no', function($data){
+                static $no = 1;
+                return $no++;
+            });
+            $table->addColumn('action', function($data){
+                $button = '<a href="'.route('admin.proposal.ajukanReviewer1', encrypt($data->id)).'" class="btn btn-sm btn-primary">Ajukan</a>';
+                return $button;
+            });
+            $table->rawColumns(['action']);
+            return $table->toJson();
+        }
+    }
+
+    public function reviewer1Tabel(HtmlBuilder $html)
+    {
+        $html->columns([
+            Column::computed('no')
+                ->title('No')
+                ->width(30)
+                ->addClass('text-center'),
+            Column::make('nama_reviewer'),
+            Column::make('email'),
+            Column::make('alamat'),
+            Column::make('institusi'),
+            Column::make('status'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center')
+        ]);
+        $html->minifiedAjax(route('admin.proposal.reviewer1TabelJSON'));
+        return $html;
+    }
+
+    public function reviewer2TabelJSON()
+    {
+        if(request()->ajax())
+        {
+            $reviewer = Reviewer::all();
+            $table = DataTables::of($reviewer);
+            $table->addColumn('no', function($data){
+                static $no = 1;
+                return $no++;
+            });
+            $table->addColumn('action', function($data){
+                $button = '<a href="'.route('admin.proposal.ajukanReviewer2', encrypt($data->id)).'" class="btn btn-sm btn-primary">Ajukan</a>';
+                return $button;
+            });
+            $table->rawColumns(['action']);
+            return $table->toJson();
+        }
+    }
+
+    public function reviewer2Tabel(HtmlBuilder $html)
+    {
+        $html->columns([
+            Column::computed('no')
+                ->title('No')
+                ->width(30)
+                ->addClass('text-center'),
+            Column::make('nama_reviewer'),
+            Column::make('email'),
+            Column::make('alamat'),
+            Column::make('institusi'),
+            Column::make('status'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center')
+        ]);
+        $html->minifiedAjax(route('admin.proposal.reviewer2TabelJSON'));
+        return $html;
     }
 }

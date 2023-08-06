@@ -96,7 +96,6 @@ Route::middleware('auth')->group(function(){
         //Admin Proposal
         Route::controller(AdminProposalController::class)->prefix('proposal')->group(function(){
             Route::get('','index')->name('admin.proposal');
-            Route::get('/{id}','showPaginationAjax')->name('admin.proposal.showAjax');
             Route::get('show/{id}','show')->name('admin.proposal.show');
             Route::get('viewBab1/{id}','viewbab1')->name('admin.proposal.viewBab1');
             Route::get('viewBab2/{id}','viewbab2')->name('admin.proposal.viewBab2');
@@ -105,6 +104,13 @@ Route::middleware('auth')->group(function(){
 
             //Download path, not yet implemented, placeholder
             Route::get('/download/{id}','download')->name('admin.proposal.download');
+
+            //Ajukan Reviewer1
+            Route::post('ajukanReviewer1','ajukanReviewer1')->name('admin.proposal.ajukanReviewer1');
+            Route::get('reviewer1TabelJSON','reviewer1TabelJSON')->name('admin.proposal.reviewer1TabelJSON');
+
+            Route::post('ajukanReviewer2','ajukanReviewer2')->name('admin.proposal.ajukanReviewer2');
+            Route::get('reviewer2TabelJSON','reviewer2TabelJSON')->name('admin.proposal.reviewer2TabelJSON');
 
         });
         //Admin Proposal En
