@@ -54,10 +54,10 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @if ($proposal->bab1->scan_ijin_operasional_pt != null)
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
+                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
                                                             class="btn btn-primary btn-sm">Download</a>
                                                     @else
-                                                    <b class='text-red'>BELUM DIISI</b>
+                                                        <b class='text-red'>BELUM DIISI</b>
                                                     @endif
                                                 </div>
                                             </div>
@@ -83,9 +83,10 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @if ($proposal->bab1->scan_status_akreditasi_institusi != null)
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}" class="btn btn-primary btn-sm">Download</a>
+                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}"
+                                                            class="btn btn-primary btn-sm">Download</a>
                                                     @else
-                                                    <b class='text-red'>BELUM DIISI</b>
+                                                        <b class='text-red'>BELUM DIISI</b>
                                                     @endif
                                                 </div>
                                             </div>
@@ -154,10 +155,10 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @if ($proposal->bab1->scan_ijin_operasional_pt_mitra != null)
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
+                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
                                                             class="btn btn-primary btn-sm">Download</a>
                                                     @else
-                                                    <b class='text-red'>BELUM DIISI</b>
+                                                        <b class='text-red'>BELUM DIISI</b>
                                                     @endif
                                                 </div>
                                             </div>
@@ -183,9 +184,10 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @if ($proposal->bab1->scan_status_akreditasi_institusi_mitra != null)
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}" class="btn btn-primary btn-sm">Download</a>
+                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}"
+                                                            class="btn btn-primary btn-sm">Download</a>
                                                     @else
-                                                    <b class='text-red'>BELUM DIISI</b>
+                                                        <b class='text-red'>BELUM DIISI</b>
                                                     @endif
 
                                                 </div>
@@ -223,20 +225,20 @@
                                 <div class="col-sm-4 col-form-label text-bold">Nama Prodi<code>*</code>
                                 </div>
                                 <div class="col-sm-4 border-right pt-1">
-                                    
-                                        <div class="text-bold">PT</div>
-                                        <div id="ProdiPT" class="border-bottom border-grey pb-2 pt-2">
-                                            {{ $proposal->bab1->nama_prodi }}
-                                        </div>
-                                    
+
+                                    <div class="text-bold">PT</div>
+                                    <div id="ProdiPT" class="border-bottom border-grey pb-2 pt-2">
+                                        {{ $proposal->bab1->nama_prodi }}
+                                    </div>
+
                                 </div>
                                 <div class="col-sm-4 pt-1">
-                                    
-                                        <div class="text-bold">PT Mitra</div>
-                                        <div id="ProdiPTMitra" class="border-bottom border-grey pb-2 pt-2">
-                                            {{ $proposal->bab1->nama_prodi_mitra }}
-                                        </div>
-                                   
+
+                                    <div class="text-bold">PT Mitra</div>
+                                    <div id="ProdiPTMitra" class="border-bottom border-grey pb-2 pt-2">
+                                        {{ $proposal->bab1->nama_prodi_mitra }}
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -244,24 +246,24 @@
                                 <div class="col-sm-4 col-form-label text-bold">Akreditasi Prodi<code>*</code>
                                 </div>
                                 <div class="col-sm-4 border-right pt-1">
-                                    
-                                        <div class="text-bold">PT</div>
-                                        <div id="AkreditasiProdiPT" class="border-bottom border-grey pb-2 pt-2">
-                                            {!! isset($proposal->bab1->status_akreditasi_prodi->status)
-                                                ? $proposal->bab1->status_akreditasi_prodi->status
-                                                : "<b class='text-red'>BELUM DIISI</b>" !!}
-                                        </div>
-                                    
+
+                                    <div class="text-bold">PT</div>
+                                    <div id="AkreditasiProdiPT" class="border-bottom border-grey pb-2 pt-2">
+                                        {!! isset($proposal->bab1->status_akreditasi_prodi->status)
+                                            ? $proposal->bab1->status_akreditasi_prodi->status
+                                            : "<b class='text-red'>BELUM DIISI</b>" !!}
+                                    </div>
+
                                 </div>
                                 <div class="col-sm-4 pt-1">
-                                   
-                                        <div class="text-bold">PT Mitra</div>
-                                        <div id="AkreditasiProdiPTMitra" class="border-bottom border-grey pb-2 pt-2">
-                                            {!! isset($proposal->bab1->status_akreditasi_prodi_mitra->status)
-                                                ? $proposal->bab1->status_akreditasi_prodi_mitra->status
-                                                : "<b class='text-red'>BELUM DIISI</b>" !!}
-                                        </div>
-                                    
+
+                                    <div class="text-bold">PT Mitra</div>
+                                    <div id="AkreditasiProdiPTMitra" class="border-bottom border-grey pb-2 pt-2">
+                                        {!! isset($proposal->bab1->status_akreditasi_prodi_mitra->status)
+                                            ? $proposal->bab1->status_akreditasi_prodi_mitra->status
+                                            : "<b class='text-red'>BELUM DIISI</b>" !!}
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -273,31 +275,31 @@
                                     <div class="form-group">
                                         <div class="text-bold">PT</div>
                                         <div class="pt-2">
-                                            
-                                                @if ($proposal->bab1->scan_sk_akreditasi_prodi != null)
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
-                                                        class="btn btn-primary btn-sm">Download</a>
-                                                @else
-                                                    <b class="text-red">BELUM DIISI</b>
-                                                @endif
-                                            
+
+                                            @if ($proposal->bab1->scan_sk_akreditasi_prodi != null)
+                                                <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
+                                                    class="btn btn-primary btn-sm">Download</a>
+                                            @else
+                                                <b class="text-red">BELUM DIISI</b>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-4 pt-1">
-                                   
-                                        <div class="text-bold">PT Mitra</div>
-                                        <div class="pt-2">
-                                            
-                                                @if ($proposal->bab1->scan_sk_akreditasi_prodi_mitra != null)
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
-                                                        class="btn btn-primary btn-sm">Download</a>
-                                                @else
-                                                    <b class="text-red">BELUM DIISI</b>
-                                                @endif
-                                            
-                                        </div>
-                                    
+
+                                    <div class="text-bold">PT Mitra</div>
+                                    <div class="pt-2">
+
+                                        @if ($proposal->bab1->scan_sk_akreditasi_prodi_mitra != null)
+                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
+                                                class="btn btn-primary btn-sm">Download</a>
+                                        @else
+                                            <b class="text-red">BELUM DIISI</b>
+                                        @endif
+
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -306,32 +308,32 @@
                                 <div class="col-sm-4 col-form-label text-bold">Izin Operasional Prodi<code>*</code>
                                 </div>
                                 <div class="col-sm-4 border-right border-top pt-1">
-                              
-                                        <div class="text-bold">PT</div>
-                                        <div class="pt-2">
-                                            @if ($proposal->bab1->scan_ijin_operasional_prodi != null)
-                                                <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
-                                                    class="btn btn-primary btn-sm">Download</a>
-                                            @else
+
+                                    <div class="text-bold">PT</div>
+                                    <div class="pt-2">
+                                        @if ($proposal->bab1->scan_ijin_operasional_prodi != null)
+                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
+                                                class="btn btn-primary btn-sm">Download</a>
+                                        @else
                                             <b class="text-red">BELUM DIISI</b>
-                                            @endif
-                                        </div>
-                                        
-                                  
+                                        @endif
+                                    </div>
+
+
 
                                 </div>
                                 <div class="col-sm-4 border-top pt-1">
-                                   
-                                        <div class="text-bold">PT Mitra</div>
-                                        <div class="pt-2">
-                                            @if ($proposal->bab1->scan_ijin_operasional_prodi_mitra != null)
-                                                <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
-                                                    class="btn btn-primary btn-sm">Download</a>
-                                            @else
-                                                <b class="text-red">BELUM DIISI</b>
-                                            @endif
-                                        </div>
-                                    
+
+                                    <div class="text-bold">PT Mitra</div>
+                                    <div class="pt-2">
+                                        @if ($proposal->bab1->scan_ijin_operasional_prodi_mitra != null)
+                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
+                                                class="btn btn-primary btn-sm">Download</a>
+                                        @else
+                                            <b class="text-red">BELUM DIISI</b>
+                                        @endif
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -360,7 +362,7 @@
                                         <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->proposal_usulan_kerjsama)) }}"
                                             class="btn btn-primary btn-sm">Download</a>
                                     @else
-                                    <b class="text-red">BELUM DIISI</b>
+                                        <b class="text-red">BELUM DIISI</b>
                                     @endif
 
                                 </div>
@@ -374,8 +376,12 @@
             </div>
         </div>
         <div class="card-footer">
+            <!-- Kembali -->
+            <a href="{{ route('admin.proposal.show', encrypt($proposal->id)) }}"
+                class="btn btn-primary">Kembali ke halaman utama</a>
             <!-- Bab selanjutnya -->
-            <a href="{{ route('admin.proposal.viewBab2', encrypt($proposal->id)) }}" class="btn btn-primary float-right">Selanjutnya</a>
-        </div> 
+            <a href="{{ route('admin.proposal.viewBab2', encrypt($proposal->id)) }}"
+                class="btn btn-primary float-right">Selanjutnya</a>
+        </div>
     </div>
 </div>

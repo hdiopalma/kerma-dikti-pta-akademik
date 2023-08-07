@@ -10,26 +10,27 @@
         </div>
         <div class="card-body pb-2">
             <div class="row">
-                <div class="col-6 col-lg-6 col-md-6 col-sm-4">
-                    <h5 class="text-bold">Status Berkas:</h5>
+                <div class="col-5 col-md-12 col-sm-4">
+                    <h6 class="text-bold">Status:</h6>
                 </div>
-                <div class="col-6 text-left">
-                    <h5><span class="card-text text-red text-bold">{{ $proposal->statusBerkas->status }}</span></h5>
+                <div class="col-6 col-md-7 text-left">
+                    <h6><span class="card-text text-red text-bold">{{ $proposal->statusBerkas->status }}</span></h6>
                 </div>
             </div>  
         </div>
         <hr style="margin: 0px">
+
+        <!-- Ajukan Reviewer 1 -->
         <div class="card-body">
-            
             <div class="row">
                 <div class="col-4 col-md-12">
-                    <h5>Reviewer 1:</h5>
+                    <h6>Reviewer 1:</h6>
                 </div>
                 <div class="col-8 col-md-12 text-left">
                     @if ($proposal->reviewer1 != null)
-                        <h5><span class="card-text text-green text-bold">{{ $proposal->reviewer1->nama_reviewer }}</span></h5>
+                        <h6><span class="card-text text-green text-bold">{{ $proposal->reviewer1->nama_reviewer }}</span></h6>
                     @else
-                        <h5><span class="card-text text-red text-bold"> Belum ditugaskan </span></h5>
+                        <h6><span class="card-text text-red text-bold"> Belum ditugaskan </span></h6>
                     @endif
                 </div>
             </div> 
@@ -37,16 +38,19 @@
                 Ajukan Reviewer 1
               </button>
         </div>
+        <hr style="margin: 0px">
+
+        <!-- Ajukan Reviewer 2 -->
         <div class="card-body">
             <div class="row">
                 <div class="col-4 col-md-12">
-                    <h5>Reviewer 2:</h5>
+                    <h6>Reviewer 2:</h6>
                 </div>
                 <div class="col-8 col-md-12 text-left">
                     @if ($proposal->reviewer2 != null)
-                        <h5><span class="card-text text-green text-bold">{{ $proposal->reviewer2->nama_reviewer }}</span></h5>
+                        <h6><span class="card-text text-green text-bold">{{ $proposal->reviewer2->nama_reviewer }}</span></h6>
                     @else
-                        <h5><span class="card-text text-red text-bold"> Belum ditugaskan </span></h5>
+                        <h6><span class="card-text text-red text-bold"> Belum ditugaskan </span></h6>
                     @endif
                 </div>
             </div> 
@@ -54,7 +58,26 @@
                 Ajukan Reviewer 2
               </button>
         </div>
+        <hr style="margin: 0px">
 
+        <!-- Ajukan Verifikator, sementara pake data reviewer dulu -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4 col-md-12">
+                    <h6>Verifikator:</h6>
+                </div>
+                <div class="col-8 col-md-12 text-left">
+                    @if ($proposal->reviewer2 != null)
+                        <h6><span class="card-text text-green text-bold">{{ $proposal->reviewer2->nama_reviewer }}</span></h6>
+                    @else
+                        <h6><span class="card-text text-red text-bold"> Belum ditugaskan </span></h6>
+                    @endif
+                </div>
+            </div> 
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalVerifikatorTabel">
+                Ajukan Verifikator
+              </button>
+        </div>
     </div>
 </div>
 
@@ -94,10 +117,31 @@
         </div>
     </div>
 </div>
+<!-- /.modal reviewer 2 -->
+
+<!-- Modal Verifikator sementara pake data reviewer dulu-->
+<div class="modal fade" id="modalVerifikatorTabel" tabindex="-1" aria-labelledby="modalVerifikatorTabelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalVerifikatorTabelLabel">Ajukan Verifikator</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> 
+            <div class="modal-body" >
+                {{ $verifikatorTable->table(['id' => 'verifikatorTable', 'class' => 'table table-bordered table-hover table-striped']) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.modal verifikator -->
 
 @push('scripts')
  
     {{ $reviewer1Table->scripts(attributes: ['type' => 'module']) }}
     {{ $reviewer2Table->scripts(attributes: ['type' => 'module']) }}
+    {{ $verifikatorTable->scripts(attributes: ['type' => 'module']) }}
 
 @endpush

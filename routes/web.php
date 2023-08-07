@@ -105,12 +105,13 @@ Route::middleware('auth')->group(function(){
             //Download path, not yet implemented, placeholder
             Route::get('/download/{id}','download')->name('admin.proposal.download');
 
-            //Ajukan Reviewer1
+            //Ajukan Reviewer
             Route::post('ajukanReviewer1','ajukanReviewer1')->name('admin.proposal.ajukanReviewer1');
-            Route::get('reviewer1TabelJSON','reviewer1TabelJSON')->name('admin.proposal.reviewer1TabelJSON');
-
             Route::post('ajukanReviewer2','ajukanReviewer2')->name('admin.proposal.ajukanReviewer2');
-            Route::get('reviewer2TabelJSON','reviewer2TabelJSON')->name('admin.proposal.reviewer2TabelJSON');
+            Route::post('ajukanVerifikator','ajukanVerifikator')->name('admin.proposal.ajukanVerifikator');
+            
+            Route::get('reviewerTabelJSON','reviewerTabelJSON')->name('admin.proposal.reviewerTabelJSON');
+            Route::get('verifikatorTabelJSON','verifikatorTabelJSON')->name('admin.proposal.verifikatorTabelJSON');
 
         });
         //Admin Proposal En

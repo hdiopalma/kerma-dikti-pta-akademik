@@ -17,6 +17,11 @@
 @endphp
     {{ $title }}
 @endsection
+
+@section('breadcrumb')
+    {{ Breadcrumbs::render('admin.proposal.viewBab3', $proposal) }}
+@endsection
+
 @section('contents')
 <div class="row">
     @include('admin.proposal.komponen.navigasi-bab')

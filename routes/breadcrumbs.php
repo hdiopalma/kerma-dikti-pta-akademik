@@ -10,7 +10,7 @@
     // (Admin) Home > Proposal
     Breadcrumbs::for('admin.proposal', function (BreadcrumbTrail $trail) {
         $trail->parent('dashboard');
-        $trail->push('Proposal', route('admin.proposal'));
+        $trail->push('Daftar Proposal', route('admin.proposal'));
     });
 
     // (Admin) Home > Proposal > [proposal]
@@ -21,5 +21,30 @@
         if (strlen($judul) > $char_limit) {
             $judul = substr($judul, 0,$char_limit) . '(...)';
         }
-        $trail->push($judul, route('admin.proposal.show', $proposal));
+        $id = encrypt($proposal->id);
+        $trail->push($judul, route('admin.proposal.show', $id));
+    });
+
+    // (Admin) Home > Proposal > Bab 1
+    Breadcrumbs::for('admin.proposal.viewBab1', function (BreadcrumbTrail $trail, $proposal) {
+        $trail->parent('admin.proposal.show', $proposal);
+        $trail->push('BAB 1', route('admin.proposal.viewBab1', $proposal));
+    });
+    
+    // (Admin) Home > Proposal > Bab 2
+    Breadcrumbs::for('admin.proposal.viewBab2', function (BreadcrumbTrail $trail, $proposal) {
+        $trail->parent('admin.proposal.show', $proposal);
+        $trail->push('BAB 2', route('admin.proposal.viewBab2', $proposal));
+    });
+
+    // (Admin) Home > Proposal > Bab 3
+    Breadcrumbs::for('admin.proposal.viewBab3', function (BreadcrumbTrail $trail, $proposal) {
+        $trail->parent('admin.proposal.show', $proposal);
+        $trail->push('BAB 3', route('admin.proposal.viewBab3', $proposal));
+    });
+
+    // (Admin) Home > Proposal > Bab 4
+    Breadcrumbs::for('admin.proposal.viewBab4', function (BreadcrumbTrail $trail, $proposal) {
+        $trail->parent('admin.proposal.show', $proposal);
+        $trail->push('BAB 4', route('admin.proposal.viewBab4', $proposal));
     });

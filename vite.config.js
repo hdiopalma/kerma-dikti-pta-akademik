@@ -15,6 +15,7 @@ export default defineConfig({
             '~admin-lte': path.resolve(__dirname, 'node_modules/admin-lte/'),
             '~datatables': path.resolve(__dirname, 'node_modules/datatables.net-bs5/'),
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap/'),
+            '~sweetalert2': path.resolve(__dirname, 'node_modules/sweetalert2/'),
             
         },
     }

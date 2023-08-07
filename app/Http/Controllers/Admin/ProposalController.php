@@ -14,7 +14,6 @@ use App\Datatables\ProposalDatatable;
 use Yajra\DataTables\Facades\DataTables;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\EloquentDataTable;
 
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -30,12 +29,6 @@ class ProposalController extends Controller
     public function index(ProposalDatatable $datatable)
     {
         return $datatable->render('admin.proposal.index');
-    }
-
-    public function showPaginationAjax($id)
-    {
-        $proposal = Proposal::all()->sortByDesc('id')->take($id);
-        return view('admin.proposal.pagination', ['proposal' => $proposal, 'lastPagination'=>$id]);
     }
 
     /**
@@ -79,8 +72,9 @@ class ProposalController extends Controller
         // aksi_reviewer1 dan aksi_reviewer2 adalah nama kolom kustom di fungsi reviewerTabelJSON
         $reviewer1Table = $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer1');
         $reviewer2Table = $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer2');
+        $verifikatorTable = $this->verifikatorTabel(app(HtmlBuilder::class), $id);
         //return response()->json([compact('proposal', 'reviewer1Table')]);
-        return view('admin.proposal.show', compact('proposal', 'reviewer1Table','reviewer2Table'));
+        return view('admin.proposal.show', compact('proposal', 'reviewer1Table','reviewer2Table','verifikatorTable'));
     }
 
 
@@ -187,6 +181,7 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
         $proposal->id_reviewer1 = decrypt($request->id_reviewer1);
+        $proposal->id_status_berkas = 8;
         if($proposal->id_reviewer1 == $proposal->id_reviewer2){
             return redirect()->back()->with('error', 'Reviewer 1 dan Reviewer 2 tidak boleh sama');
         }
@@ -206,6 +201,7 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
         $proposal->id_reviewer2 = decrypt($request->id_reviewer2);
+        $proposal->id_status_berkas = 8;
         if($proposal->id_reviewer1 == $proposal->id_reviewer2){
             return redirect()->back()->with('error', 'Reviewer 1 dan Reviewer 2 tidak boleh sama');
         }
@@ -213,6 +209,24 @@ class ProposalController extends Controller
             return redirect()->back()->with('success', 'Reviewer 2 berhasil diajukan');
         }
         return redirect()->back()->with('error', 'Reviewer 2 gagal diajukan');
+    }
+
+    /**
+     * Proses pengajuan verifikator
+     * Input : $request->id_proposal (id proposal yang akan diajukan verifikator, passed from admin.proposal.show route)
+     * Output : redirect ke halaman sebelumnya dengan pesan sukses
+     * TODO : 1. Sementara masih menggunakan id_reviewer2, nanti diganti dengan id_verifikator
+     *       2. Status berkas masih hardcode, nanti diganti dengan status berkas yang sesuai
+     */
+    public function ajukanVerifikator(Request $request)
+    {
+        $proposal = Proposal::find(decrypt($request->id_proposal));
+        $proposal->id_reviewer2 = decrypt($request->id_verifikator);
+        $proposal->id_status_berkas = 7;
+        if($proposal->save()){
+            return redirect()->back()->with('success', 'Verifikator berhasil diajukan');
+        }
+        return redirect()->back()->with('error', 'Verifikator gagal diajukan');
     }
 
     /**
@@ -259,6 +273,37 @@ class ProposalController extends Controller
     }
 
     /**
+     * Fetch data dari database untuk datatable pengajuan verifikator.
+     * Input : $id_proposal (id proposal yang akan diajukan verifikator, passed from admin.proposal.verifikatorTabelJSON route)
+     * Output : JSON data untuk ditampilkan di datatable
+     * TODO : 1. Sementara masih menggunakan tabel reviewer, nanti diganti dengan tabel verifikator
+     */
+    public function verifikatorTabelJSON()
+    {
+        if(request()->ajax())
+        {   
+            $id_proposal = request()->get('id_proposal');
+            $verifikator = Reviewer::all();
+            $table = DataTables::of($verifikator);
+            $table->addColumn('no', function($data){
+                static $no = 1;
+                return $no++;
+            });
+            $table->addColumn('aksi_verifikator', function($data) use ($id_proposal){
+                $button = '<form action="'.route('admin.proposal.ajukanVerifikator').'" method="POST">';
+                $button .= csrf_field();
+                $button .= '<input type="hidden" name="id_verifikator" value="'.encrypt($data->id).'">';
+                $button .= '<input type="hidden" name="id_proposal" value="'.$id_proposal.'">';
+                $button .= '<button type="submit" class="btn btn-sm btn-primary">Ajukan</button>';
+                $button .= '</form>';
+                return $button;
+            });
+            $table->rawColumns(['aksi_verifikator']);
+            return $table->toJson();
+        }
+    }
+
+    /**
     * Menghasilkan html datatable pengajuan reviewer1.
     * Input : HtmlBuilder:class (html builder dari yajra datatable).
     * Input : $id_proposal (id proposal yang akan diajukan reviewer, dikirim ke reviewer1TabelJSON via route 
@@ -291,9 +336,40 @@ class ProposalController extends Controller
             'language' => [
                 'searchPlaceholder' => 'Cari'
             ],
-
         ]);
         $html->minifiedAjax(route('admin.proposal.reviewerTabelJSON', ['id_proposal' => $id_proposal]));
         return $html;
     }
+
+    public function verifikatorTabel(HtmlBuilder $html, $id_proposal)
+    {
+        $html->columns([
+            Column::computed('no')
+                ->title('No')
+                ->width(30)
+                ->addClass('text-center'),
+            Column::make('nama_reviewer'),
+            Column::make('email'),
+            Column::make('institusi'),
+            Column::make('status'),
+            Column::computed('aksi_verifikator')
+                ->exportable(false)
+                ->printable(false)
+                ->width(60)
+                ->addClass('text-center')
+                ->title('Aksi')
+        ]);
+        $html->parameters([
+            'responsive' => false,
+            'autoWidth' => false,
+            'scrollX' => false,
+            'order' => [[0, 'asc']],
+            'language' => [
+                'searchPlaceholder' => 'Cari'
+            ],
+        ]);
+        $html->minifiedAjax(route('admin.proposal.verifikatorTabelJSON', ['id_proposal' => $id_proposal]));
+        return $html;
+    }
+    
 }
