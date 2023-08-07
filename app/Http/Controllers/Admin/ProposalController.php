@@ -16,6 +16,8 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\EloquentDataTable;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 class ProposalController extends Controller
 {
 
@@ -73,9 +75,10 @@ class ProposalController extends Controller
             'reviewer2',
             )->find(decrypt($id));
 
-        //Id prososal dikirim ke tabel reviewer agar bisa diproses di ajukanReviewer
-        $reviewer1Table = $this->reviewer1Tabel(app(HtmlBuilder::class), $id);
-        $reviewer2Table = $this->reviewer2Tabel(app(HtmlBuilder::class), $id);
+        //Id prososal dikirim ke tabel reviewer agar bisa diproses di ajukanReviewer, masih bentuk encrypted
+        // aksi_reviewer1 dan aksi_reviewer2 adalah nama kolom kustom di fungsi reviewerTabelJSON
+        $reviewer1Table = $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer1');
+        $reviewer2Table = $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer2');
         //return response()->json([compact('proposal', 'reviewer1Table')]);
         return view('admin.proposal.show', compact('proposal', 'reviewer1Table','reviewer2Table'));
     }
@@ -184,8 +187,14 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
         $proposal->id_reviewer1 = decrypt($request->id_reviewer1);
-        $proposal->save();
-        return redirect()->back()->with('success', 'Reviewer 1 berhasil diajukan');
+        if($proposal->id_reviewer1 == $proposal->id_reviewer2){
+            return redirect()->back()->with('error', 'Reviewer 1 dan Reviewer 2 tidak boleh sama');
+        }
+        if($proposal->save()){
+            return redirect()->back()->with('success', 'Reviewer 1 berhasil diajukan');
+        }
+        return redirect()->back()->with('error', 'Reviewer 1 gagal diajukan');
+        
     }
 
     /**
@@ -197,20 +206,25 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
         $proposal->id_reviewer2 = decrypt($request->id_reviewer2);
-        $proposal->save();
-        return redirect()->back()->with('success', 'Reviewer 2 berhasil diajukan');
+        if($proposal->id_reviewer1 == $proposal->id_reviewer2){
+            return redirect()->back()->with('error', 'Reviewer 1 dan Reviewer 2 tidak boleh sama');
+        }
+        if($proposal->save()){
+            return redirect()->back()->with('success', 'Reviewer 2 berhasil diajukan');
+        }
+        return redirect()->back()->with('error', 'Reviewer 2 gagal diajukan');
     }
 
     /**
-    * Fetch data dari database untuk datatable pengajuan reviewer1.
+    * Fetch data dari database untuk datatable pengajuan reviewer.
     * Input : $id_proposal (id proposal yang akan diajukan reviewer, passed from admin.proposal.reviewer1TabelJSON route)
     * Output : JSON data untuk ditampilkan di datatable
     * Note : $id_proposal digunakan untuk mengirim id proposal ke route ajukanReviewer1
     * 
-    * TODO : 1. Tambahkan fitur agar reviewer1 tidak boleh sama dengan reviewer2
+    * TODO : 1. Tambahkan fitur agar reviewer1 tidak boleh sama dengan reviewer2 (done, look at ajukanReviewer1 function)
     *        2. Tambahkan fungsi penyaringan reviewer1 yang sudah diajukan ke proposal ini
     */
-    public function reviewer1TabelJSON()
+    public function reviewerTabelJSON()
     {
         if(request()->ajax())
         {   
@@ -221,7 +235,7 @@ class ProposalController extends Controller
                 static $no = 1;
                 return $no++;
             });
-            $table->addColumn('action', function($data) use ($id_proposal){
+            $table->addColumn('aksi_reviewer1', function($data) use ($id_proposal){
                 $button = '<form action="'.route('admin.proposal.ajukanReviewer1').'" method="POST">';
                 $button .= csrf_field();
                 $button .= '<input type="hidden" name="id_reviewer1" value="'.encrypt($data->id).'">';
@@ -230,32 +244,7 @@ class ProposalController extends Controller
                 $button .= '</form>';
                 return $button;
             });
-            $table->rawColumns(['action']);
-            return $table->toJson();
-        }
-    }
-
-    /**
-    * Fetch data dari database untuk datatable pengajuan reviewer2.
-    * Input : $id_proposal (id proposal yang akan diajukan reviewer, passed from admin.proposal.reviewer2TabelJSON route)
-    * Output : JSON data yang akan ditampilkan di datatable.
-    * Note : $id_proposal digunakan untuk mengirim id proposal ke route ajukanReviewer2
-    *
-    * TODO : 1. Tambahkan fitur agar reviewer2 tidak boleh sama dengan reviewer1
-    *        2. Tambahkan fungsi penyaringan reviewer2 yang sudah diajukan ke proposal ini
-    */
-    public function reviewer2TabelJSON()
-    {
-        if(request()->ajax())
-        {   
-            $id_proposal = request()->get('id_proposal');
-            $reviewer = Reviewer::all();
-            $table = DataTables::of($reviewer);
-            $table->addColumn('no', function($data){
-                static $no = 1;
-                return $no++;
-            });
-            $table->addColumn('action', function($data) use ($id_proposal){
+            $table->addColumn('aksi_reviewer2', function($data) use ($id_proposal){
                 $button = '<form action="'.route('admin.proposal.ajukanReviewer2').'" method="POST">';
                 $button .= csrf_field();
                 $button .= '<input type="hidden" name="id_reviewer2" value="'.encrypt($data->id).'">';
@@ -264,7 +253,7 @@ class ProposalController extends Controller
                 $button .= '</form>';
                 return $button;
             });
-            $table->rawColumns(['action']);
+            $table->rawColumns(['aksi_reviewer1', 'aksi_reviewer2']);
             return $table->toJson();
         }
     }
@@ -276,7 +265,7 @@ class ProposalController extends Controller
     *         admin.proposal.reviewer1TabelJSON)
     * Output: $html (html datatable yang akan ditampilkan di view)
     */
-    public function reviewer1Tabel(HtmlBuilder $html, $id_proposal)
+    public function reviewerTabel(HtmlBuilder $html, $id_proposal, $aksi_reviewer)
     {
         $html->columns([
             Column::computed('no')
@@ -287,11 +276,12 @@ class ProposalController extends Controller
             Column::make('email'),
             Column::make('institusi'),
             Column::make('status'),
-            Column::computed('action')
+            Column::computed($aksi_reviewer)
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center')
+                ->title('Aksi')
         ]);
         $html->parameters([
             'responsive' => false,
@@ -303,45 +293,7 @@ class ProposalController extends Controller
             ],
 
         ]);
-        $html->minifiedAjax(route('admin.proposal.reviewer1TabelJSON', ['id_proposal' => $id_proposal]));
-        return $html;
-    }
-
-    /**
-    * Menghasilkan html datatable pengajuan reviewer2.
-    * Input : HtmlBuilder:class (html builder dari yajra datatable).
-    * Input : $id_proposal (id proposal yang akan diajukan reviewer, dikirim ke reviewer2TabelJSON via route
-    *         admin.proposal.reviewer2TabelJSON)
-    * Output: $html (html datatable yang akan ditampilkan di view)
-    */
-    public function reviewer2Tabel(HtmlBuilder $html, $id_proposal)
-    {
-        $html->columns([
-            Column::computed('no')
-                ->title('No')
-                ->width(30)
-                ->addClass('text-center'),
-            Column::make('nama_reviewer'),
-            Column::make('email'),
-            Column::make('institusi'),
-            Column::make('status'),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center')
-        ]);
-        $html->parameters([
-            'responsive' => false,
-            'autoWidth' => false,
-            'scrollX' => false,
-            'order' => [[0, 'asc']],
-            'language' => [
-                'searchPlaceholder' => 'Cari'
-            ],
-
-        ]);
-        $html->minifiedAjax(route('admin.proposal.reviewer2TabelJSON', ['id_proposal' => $id_proposal]));
+        $html->minifiedAjax(route('admin.proposal.reviewerTabelJSON', ['id_proposal' => $id_proposal]));
         return $html;
     }
 }
