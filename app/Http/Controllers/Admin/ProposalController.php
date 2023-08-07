@@ -19,6 +19,12 @@ use Yajra\DataTables\EloquentDataTable;
 class ProposalController extends Controller
 {
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @param \App\Datatables\ProposalDatatable $datatable
+     * 
+     */
     public function index(ProposalDatatable $datatable)
     {
         return $datatable->render('admin.proposal.index');
@@ -67,6 +73,7 @@ class ProposalController extends Controller
             'reviewer2',
             )->find(decrypt($id));
 
+        //Id prososal dikirim ke tabel reviewer agar bisa diproses di ajukanReviewer
         $reviewer1Table = $this->reviewer1Tabel(app(HtmlBuilder::class), $id);
         $reviewer2Table = $this->reviewer2Tabel(app(HtmlBuilder::class), $id);
         //return response()->json([compact('proposal', 'reviewer1Table')]);
@@ -156,12 +163,23 @@ class ProposalController extends Controller
         //
     }
     
+    /**
+     * Download file proposal
+     * Input : $path (path file yang akan didownload, passed from admin.proposal.download)
+     * Output : file yang akan didownload
+     * Note : 'app/public/' masih sementara, nanti diganti setelah konfirmasi
+     */
     public function download($path)
     {
         $path = decrypt($path);
         return response()->download(storage_path('app/public/' . $path));
     }
 
+    /**
+    * Proses pengajuan reviewer1
+    * Input : $request->id_proposal (id proposal yang akan diajukan reviewer, passed from admin.proposal.show route)
+    * Output : redirect ke halaman sebelumnya dengan pesan sukses
+    */
     public function ajukanReviewer1(Request $request)
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
@@ -170,6 +188,11 @@ class ProposalController extends Controller
         return redirect()->back()->with('success', 'Reviewer 1 berhasil diajukan');
     }
 
+    /**
+    * Proses pengajuan reviewer2
+    * Input : $request->id_proposal (id proposal yang akan diajukan reviewer, passed from admin.proposal.show route)
+    * Output : redirect ke halaman sebelumnya dengan pesan sukses
+    */
     public function ajukanReviewer2(Request $request)
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
@@ -178,6 +201,15 @@ class ProposalController extends Controller
         return redirect()->back()->with('success', 'Reviewer 2 berhasil diajukan');
     }
 
+    /**
+    * Fetch data dari database untuk datatable pengajuan reviewer1.
+    * Input : $id_proposal (id proposal yang akan diajukan reviewer, passed from admin.proposal.reviewer1TabelJSON route)
+    * Output : JSON data untuk ditampilkan di datatable
+    * Note : $id_proposal digunakan untuk mengirim id proposal ke route ajukanReviewer1
+    * 
+    * TODO : 1. Tambahkan fitur agar reviewer1 tidak boleh sama dengan reviewer2
+    *        2. Tambahkan fungsi penyaringan reviewer1 yang sudah diajukan ke proposal ini
+    */
     public function reviewer1TabelJSON()
     {
         if(request()->ajax())
@@ -203,6 +235,15 @@ class ProposalController extends Controller
         }
     }
 
+    /**
+    * Fetch data dari database untuk datatable pengajuan reviewer2.
+    * Input : $id_proposal (id proposal yang akan diajukan reviewer, passed from admin.proposal.reviewer2TabelJSON route)
+    * Output : JSON data yang akan ditampilkan di datatable.
+    * Note : $id_proposal digunakan untuk mengirim id proposal ke route ajukanReviewer2
+    *
+    * TODO : 1. Tambahkan fitur agar reviewer2 tidak boleh sama dengan reviewer1
+    *        2. Tambahkan fungsi penyaringan reviewer2 yang sudah diajukan ke proposal ini
+    */
     public function reviewer2TabelJSON()
     {
         if(request()->ajax())
@@ -228,6 +269,13 @@ class ProposalController extends Controller
         }
     }
 
+    /**
+    * Menghasilkan html datatable pengajuan reviewer1.
+    * Input : HtmlBuilder:class (html builder dari yajra datatable).
+    * Input : $id_proposal (id proposal yang akan diajukan reviewer, dikirim ke reviewer1TabelJSON via route 
+    *         admin.proposal.reviewer1TabelJSON)
+    * Output: $html (html datatable yang akan ditampilkan di view)
+    */
     public function reviewer1Tabel(HtmlBuilder $html, $id_proposal)
     {
         $html->columns([
@@ -259,6 +307,13 @@ class ProposalController extends Controller
         return $html;
     }
 
+    /**
+    * Menghasilkan html datatable pengajuan reviewer2.
+    * Input : HtmlBuilder:class (html builder dari yajra datatable).
+    * Input : $id_proposal (id proposal yang akan diajukan reviewer, dikirim ke reviewer2TabelJSON via route
+    *         admin.proposal.reviewer2TabelJSON)
+    * Output: $html (html datatable yang akan ditampilkan di view)
+    */
     public function reviewer2Tabel(HtmlBuilder $html, $id_proposal)
     {
         $html->columns([

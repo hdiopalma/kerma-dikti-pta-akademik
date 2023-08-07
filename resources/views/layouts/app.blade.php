@@ -19,7 +19,13 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <div class="container-fluid">
-                        <h1>@yield('header-title')</h1>
+                        <div class="row mb-2">
+                            <h1>@yield('header-title')</h1>
+                            
+                            </div>
+                        <div class="row mb-2">
+                            @yield('breadcrumb')
+                        </div>
                     </div>
                 </section>
                 <section class="content">

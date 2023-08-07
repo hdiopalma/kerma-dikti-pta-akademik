@@ -1,6 +1,9 @@
 @extends('layouts.app') 
 @section('title', 'Proposal - '. $proposal->judul) 
-@section('header-title', 'Proposal')
+@section('header-title', 'Detail Proposal')
+@section('breadcrumb')
+    {{ Breadcrumbs::render('admin.proposal.show', $proposal) }}
+@endsection
 @section('contents')
 <div class="row">
     @include('admin.proposal.komponen.navigasi-bab')
