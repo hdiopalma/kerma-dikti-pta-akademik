@@ -38,6 +38,7 @@ return array(
     'App\\Models\\Reviewer' => $baseDir . '/app/Models/Reviewer.php',
     'App\\Models\\Universitas' => $baseDir . '/app/Models/Universitas.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Models\\Verifikator' => $baseDir . '/app/Models/Verifikator.php',
     'App\\Models\\bab1' => $baseDir . '/app/Models/bab1.php',
     'App\\Models\\bab2' => $baseDir . '/app/Models/bab2.php',
     'App\\Models\\bab3' => $baseDir . '/app/Models/bab3.php',

@@ -50,4 +50,8 @@ class proposal extends Model
     public function reviewer2(){
         return $this->belongsTo(Reviewer::class, 'id_reviewer2');
     }
+
+    public function verifikator(){
+        return $this->belongsTo(Verifikator::class, 'id_verifikator');
+    }
 }

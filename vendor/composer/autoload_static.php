@@ -622,6 +622,7 @@ class ComposerStaticInit763822cc7a1bb8dd7b75b5ba90c317f8
         'App\\Models\\Reviewer' => __DIR__ . '/../..' . '/app/Models/Reviewer.php',
         'App\\Models\\Universitas' => __DIR__ . '/../..' . '/app/Models/Universitas.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Models\\Verifikator' => __DIR__ . '/../..' . '/app/Models/Verifikator.php',
         'App\\Models\\bab1' => __DIR__ . '/../..' . '/app/Models/bab1.php',
         'App\\Models\\bab2' => __DIR__ . '/../..' . '/app/Models/bab2.php',
         'App\\Models\\bab3' => __DIR__ . '/../..' . '/app/Models/bab3.php',

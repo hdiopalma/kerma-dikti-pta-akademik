@@ -7,6 +7,7 @@ use App\Models\bab2;
 use App\Models\bab3;
 use App\Models\bab4;
 use App\Models\Reviewer;
+use App\Models\Verifikator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -64,17 +65,57 @@ class ProposalController extends Controller
             'statusBerkas',
             'universitas',
             'kerjasama',
-            'reviewer1',
-            'reviewer2',
             )->find(decrypt($id));
 
         //Id prososal dikirim ke tabel reviewer agar bisa diproses di ajukanReviewer, masih bentuk encrypted
         // aksi_reviewer1 dan aksi_reviewer2 adalah nama kolom kustom di fungsi reviewerTabelJSON
-        $reviewer1Table = $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer1');
-        $reviewer2Table = $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer2');
-        $verifikatorTable = $this->verifikatorTabel(app(HtmlBuilder::class), $id);
+        
+        $administrasiProposal = [];
+
+        // Munculkan tabel atau fungsi berdasarkan status proposal, status masih asumsi
+        switch ($proposal->statusBerkas->status) {
+            case 'Dalam Proses':
+                $administrasiProposal = [
+                    'verifikatorTable' => $this->verifikatorTabel(app(HtmlBuilder::class), $id),
+                ];
+                break;
+            case 'Dalam Proses Verifikasi':
+                $administrasiProposal = [
+                    //Jika sebelumnya user salah input, maka akan muncul tabel verifikator untuk ajukan ulang.
+                    'verifikatorTable' => $this->verifikatorTabel(app(HtmlBuilder::class), $id),
+                ];
+                break;
+            case 'Ditolak Verifikator':
+                $administrasiProposal = [
+                    'verifikatorTable' => $this->verifikatorTabel(app(HtmlBuilder::class), $id),
+                ];
+                break;
+            case 'Diverifikasi':
+                $administrasiProposal = [
+                    'reviewer1Table' => $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer1'),
+                    'reviewer2Table' => $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer2'),
+                ];
+                break;
+            case 'Diverifikasi Reviewer 1':
+                $administrasiProposal = [
+                    'reviewer2Table' => $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer2'),
+                ];
+                break;
+            case 'Ditolak Reviewer 1':
+                
+                break;
+            case 'Diverifikasi Reviewer 2':
+                
+                break;
+            case 'Ditolak Reviewer 2':
+                    
+                break;
+            default:
+                # code...
+                break;
+        }
         //return response()->json([compact('proposal', 'reviewer1Table')]);
-        return view('admin.proposal.show', compact('proposal', 'reviewer1Table','reviewer2Table','verifikatorTable'));
+        return view('admin.proposal.show', compact('proposal', 'administrasiProposal'));
     }
 
 
@@ -221,7 +262,7 @@ class ProposalController extends Controller
     public function ajukanVerifikator(Request $request)
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
-        $proposal->id_reviewer2 = decrypt($request->id_verifikator);
+        $proposal->id_verifikator = decrypt($request->id_verifikator);
         $proposal->id_status_berkas = 7;
         if($proposal->save()){
             return redirect()->back()->with('success', 'Verifikator berhasil diajukan');
@@ -283,7 +324,7 @@ class ProposalController extends Controller
         if(request()->ajax())
         {   
             $id_proposal = request()->get('id_proposal');
-            $verifikator = Reviewer::all();
+            $verifikator = Verifikator::all();
             $table = DataTables::of($verifikator);
             $table->addColumn('no', function($data){
                 static $no = 1;
@@ -348,7 +389,7 @@ class ProposalController extends Controller
                 ->title('No')
                 ->width(30)
                 ->addClass('text-center'),
-            Column::make('nama_reviewer'),
+            Column::make('nama_verifikator'),
             Column::make('email'),
             Column::make('institusi'),
             Column::make('status'),
