@@ -54,4 +54,8 @@ class proposal extends Model
     public function verifikator(){
         return $this->belongsTo(Verifikator::class, 'id_verifikator');
     }
+
+    public function reviewerBab1(){
+        return $this->hasMany(ReviewerBab1::class, 'id_proposal');
+    }
 }
