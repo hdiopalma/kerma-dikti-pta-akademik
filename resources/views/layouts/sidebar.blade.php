@@ -78,6 +78,15 @@
                     </li>
                 @endif
 
+                @if (auth()->user()->id_level == 3)
+                    <li class="nav-item">
+                        <a href="{{route('reviewer.proposal')}}" class="nav-link">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Data Proposal Kerjasama</span>
+                        </a>
+                    </li>
+                @endif
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}">
                         <i class="fas fa-sign-out-alt"></i>

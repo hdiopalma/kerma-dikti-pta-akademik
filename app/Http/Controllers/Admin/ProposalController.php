@@ -222,7 +222,7 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
         $proposal->id_reviewer1 = decrypt($request->id_reviewer1);
-        $proposal->id_status_berkas = 8;
+        $proposal->id_status_berkas = 10;
         if($proposal->id_reviewer1 == $proposal->id_reviewer2){
             return redirect()->back()->with('error', 'Reviewer 1 dan Reviewer 2 tidak boleh sama');
         }
@@ -242,7 +242,7 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::find(decrypt($request->id_proposal));
         $proposal->id_reviewer2 = decrypt($request->id_reviewer2);
-        $proposal->id_status_berkas = 8;
+        $proposal->id_status_berkas = 11;
         if($proposal->id_reviewer1 == $proposal->id_reviewer2){
             return redirect()->back()->with('error', 'Reviewer 1 dan Reviewer 2 tidak boleh sama');
         }

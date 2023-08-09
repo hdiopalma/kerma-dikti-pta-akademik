@@ -24,7 +24,7 @@ class StatusBerkasSeeder extends Seeder
             ['status' => 'Dalam Pengisian', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Menunggu Verifikasi', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Dalam Proses Verifikasi', 'created_at' => now(), 'updated_at' => now()], 
-            ['status' => 'Diverifikasi, Menunggu Proses Review', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Diverifikasi, Diverifikasi, lanjut proses review', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Tidak Lolos Verifikasi', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Dalam Proses Review 1', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Dalam Proses Review 2', 'created_at' => now(), 'updated_at' => now()],

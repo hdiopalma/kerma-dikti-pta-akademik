@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\ProposalController as AdminProposalController;
 use App\Http\Controllers\Verifikator\ProposalController as VerifikatorProposalController;
+use App\Http\Controllers\Reviewer\ProposalController as ReviewerProposalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +139,29 @@ Route::middleware('auth')->group(function(){
 
         });
         //Verifikator Proposal End
+    });
+
+    //Akses Reviewer
+    Route::prefix('reviewer')->middleware('role:3')->group(function(){
+        //Reviewer Proposal
+        Route::controller(ReviewerProposalController::class)->prefix('proposal')->group(function(){
+            Route::get('','index')->name('reviewer.proposal');
+            Route::get('show/{id}','show')->name('reviewer.proposal.show');
+            Route::get('viewBab1/{id}','viewbab1')->name('reviewer.proposal.viewBab1');
+            Route::get('viewBab2/{id}','viewbab2')->name('reviewer.proposal.viewBab2');
+            Route::get('viewBab3/{id}','viewbab3')->name('reviewer.proposal.viewBab3');
+            Route::get('viewBab4/{id}','viewbab4')->name('reviewer.proposal.viewBab4');
+
+            //Simpan review bab
+            Route::post('simpanReviewBab1','simpanReviewBab1')->name('reviewer.proposal.simpanReviewBab1');
+
+            //Download path, not yet implemented, placeholder
+            Route::get('/download/{id}','download')->name('reviewer.proposal.download');
+
+            
+
+        });
+        //Reviewer Proposal End
     });
 });
 

@@ -45,8 +45,7 @@ class ProposalDataTable extends DataTable
      */
     public function query(Proposal $model): QueryBuilder
     {
-        //join proposal with status_berkas
-        $query = $model->newQuery()->with('statusBerkas');
+        $query = $model->newQuery()->with(['statusBerkas', 'universitas']);
         return $query;
         
     }
@@ -67,7 +66,7 @@ class ProposalDataTable extends DataTable
                    ->parameters([
                         //Add filter column using dropdown select menu and 
                         'initComplete' => 'function () {
-                            this.api().columns([3, 4, 5, 6]).every(function () {
+                            this.api().columns([4, 3, 5, 6,7]).every(function () {
                                 var column = this;
                                 var select = $(\'<select class="form-control"><option value="">Semua</option></select>\')
                                     .appendTo($(column.footer()).empty())
@@ -80,8 +79,8 @@ class ProposalDataTable extends DataTable
                                             .draw();
                                     });
                         
-                                if (column.index() === 4) {
-                                    // If column index is 4 (column 4), use a date picker input
+                                if (column.index() === 5) {
+                                    // If column index is 5 (column 5), use a date picker input
                                     var input = $(\'<input type="date" class="form-control">\')
                                         .appendTo($(column.footer()).empty())
                                         .on(\'change\', function () {
@@ -102,7 +101,7 @@ class ProposalDataTable extends DataTable
                             $(column2Footer).append(\'<div class="text-right pt-2 pr-1">Saring data</div>\');
 
                             var table = this;
-                            var lastColumnFooter = table.api().columns([7]).footer();
+                            var lastColumnFooter = table.api().columns([8]).footer();
                             
                             $(lastColumnFooter).append(\'<button class="btn btn-md btn-outline-secondary clear-filters">Clear</button>\');
 
@@ -130,6 +129,7 @@ class ProposalDataTable extends DataTable
             //proposal.id
             Column::make('id', 'proposal.id')->hidden(),
             Column::make('judul'),
+            Column::make('universitas.nama_universitas','universitas.nama_universitas')->title('PT'),
             Column::make('pt_mitra_negeri')->title('Mitra'),
             Column::make('tanggal_pengajuan')->title('Tanggal Draft'),
             Column::make('status_pengisian')->title('Status Pengisian'),

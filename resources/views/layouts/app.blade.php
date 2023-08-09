@@ -10,6 +10,14 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         <!-- Custom css -->
         @stack('styles')
+
+        <style>
+            nav li a {
+                text-decoration: none !important;
+            }
+
+        </style>
+
         <link href="{{ asset('Login_Dikti_files/logo_ristekdikti.png') }}" rel="icon" type="image/png">
     </head>
     <body class="hold-transition sidebar-mini">
@@ -17,15 +25,17 @@
             @include('layouts.navbar')
             @include('layouts.sidebar')
             <div class="content-wrapper">
-                <section class="content-header">
+                <section class="content-header pb-0">
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <h1>@yield('header-title')</h1>
                             
                             </div>
-                        <div class="row mb-2">
-                            @yield('breadcrumb')
-                        </div>
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    @yield('breadcrumb')
+                                </div>
+                            </div>
                     </div>
                 </section>
                 <section class="content">
