@@ -36,6 +36,9 @@
             </div>
             @include('layouts.footer')
         </div>
+
+        @stack('modals')
+
         @stack('scripts')
 
         @include('sweetalert::alert')

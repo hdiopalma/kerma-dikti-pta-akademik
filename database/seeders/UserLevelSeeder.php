@@ -19,7 +19,7 @@ class UserLevelSeeder extends Seeder
                 ['level' => 'Admin', 'created_at' => now(), 'updated_at' => now()],
                 ['level' => 'User', 'created_at' => now(), 'updated_at' => now()],
                 ['level' => 'Reviewer', 'created_at' => now(), 'updated_at' => now()],
-                ['level' => '4', 'created_at' => now(), 'updated_at' => now()],
+                ['level' => 'Verifikator', 'created_at' => now(), 'updated_at' => now()],
                 ['level' => '5', 'created_at' => now(), 'updated_at' => now()],
             ];
 

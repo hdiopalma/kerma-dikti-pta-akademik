@@ -20,7 +20,7 @@ class ProposalSeeder extends Seeder
             [
                 'judul' => 'Studi Kolaboratif dalam Bidang Ilmu Komputer antara Universitas Indonesia dan University of California',
                 'tanggal_pengajuan' => '2023-07-20',
-                'status_pengisian' => 'Draft',
+                'status_pengisian' => 'Lengkap',
                 'pt_mitra_negeri' => 'University of California',
                 'prodi_pt_mitra_negeri' => 'Department of Computer Science',
                 'prodi_pt_dalam_negeri' => 'Fakultas Ilmu Komputer',
@@ -35,14 +35,15 @@ class ProposalSeeder extends Seeder
                 'id_bab1' => 1, // Assuming bab1 table has an appropriate ID
                 'id_bab2' => 1, // Assuming bab2 table has an appropriate ID
                 'id_bab3' => 1, // Assuming bab3 table has an appropriate ID
-                'id_reviewer1' => 1, // Assuming reviewer table has an appropriate ID
-                'id_reviewer2' => 2, // Assuming reviewer table has an appropriate ID
-                'id_status_berkas' => 1, // Assuming status_berkas table has an appropriate ID
+                'id_reviewer1' => null, // Assuming reviewer table has an appropriate ID
+                'id_reviewer2' => null, // Assuming reviewer table has an appropriate ID
+                'id_verifikator' => null, // Assuming verificator table has an appropriate ID
+                'id_status_berkas' => 6, // Assuming status_berkas table has an appropriate ID
             ],
             [
                 'judul' => 'Peningkatan Kerjasama Riset dan Inovasi Teknologi Antara Institut Teknologi Bandung dan National University of Singapore',
                 'tanggal_pengajuan' => '2023-07-22',
-                'status_pengisian' => 'Final',
+                'status_pengisian' => 'Lengkap',
                 'pt_mitra_negeri' => 'Institut Teknologi Bandung',
                 'prodi_pt_mitra_negeri' => 'Program Studi Teknik Elektro',
                 'prodi_pt_dalam_negeri' => 'Fakultas Teknik',
@@ -57,14 +58,15 @@ class ProposalSeeder extends Seeder
                 'id_bab1' => 2, // Assuming bab1 table has an appropriate ID
                 'id_bab2' => 2, // Assuming bab2 table has an appropriate ID
                 'id_bab3' => 2, // Assuming bab3 table has an appropriate ID
-                'id_reviewer1' => 2, // Assuming reviewer table has an appropriate ID
-                'id_reviewer2' => 3, // Assuming reviewer table has an appropriate ID
-                'id_status_berkas' => 2, // Assuming status_berkas table has an appropriate ID
+                'id_reviewer1' => null, // Assuming reviewer table has an appropriate ID
+                'id_reviewer2' => null, // Assuming reviewer table has an appropriate ID
+                'id_verifikator' => null, // Assuming verificator table has an appropriate ID
+                'id_status_berkas' => 6, // Assuming status_berkas table has an appropriate ID
             ],
             [
                 'judul' => 'Peningkatan Kerjasama Pendidikan dan Penelitian Antara Institut Teknologi Bandung dan National University of Singapore',
                 'tanggal_pengajuan' => '2023-08-10',
-                'status_pengisian' => 'Draft',
+                'status_pengisian' => 'Belum Lengkap',
                 'pt_mitra_negeri' => 'National University of Singapore',
                 'prodi_pt_mitra_negeri' => 'Department of Computer Science',
                 'prodi_pt_dalam_negeri' => 'Faculty of Mathematics and Natural Sciences',
@@ -81,12 +83,13 @@ class ProposalSeeder extends Seeder
                 'id_bab3' => 3, // Assuming bab3 table has an appropriate ID
                 'id_reviewer1' => null, // Assuming reviewer table has an appropriate ID
                 'id_reviewer2' => null, // Assuming reviewer table has an appropriate ID
-                'id_status_berkas' => 4, // Assuming status_berkas table has an appropriate ID
+                'id_verifikator' => null, // Assuming verificator table has an appropriate ID
+                'id_status_berkas' => 5, // Assuming status_berkas table has an appropriate ID
             ],
             [
                 'judul' => 'Joint Research Collaboration on Sustainable Energy Solutions between Institut Teknologi Bandung and National University of Singapore',
                 'tanggal_pengajuan' => '2023-09-20',
-                'status_pengisian' => 'Final',
+                'status_pengisian' => 'Belum Lengkap',
                 'pt_mitra_negeri' => 'Institut Teknologi Bandung',
                 'prodi_pt_mitra_negeri' => 'Program Studi Teknik Kimia',
                 'prodi_pt_dalam_negeri' => 'Fakultas Teknologi Industri',
@@ -103,12 +106,13 @@ class ProposalSeeder extends Seeder
                 'id_bab3' => 4, // Assuming bab3 table has an appropriate ID
                 'id_reviewer1' => null, // Assuming reviewer table has an appropriate ID
                 'id_reviewer2' => null, // Assuming reviewer table has an appropriate ID
-                'id_status_berkas' => 4, // Assuming status_berkas table has an appropriate ID
+                'id_verifikator' => null, // Assuming verificator table has an appropriate ID
+                'id_status_berkas' => 5, // Assuming status_berkas table has an appropriate ID
             ],
             [
                 'judul' => 'Kerjasama Riset lan Inovasi Teknologi Kanggé Institut Teknologi Bandung lan National University of Singapore',
                 'tanggal_pengajuan' => '2023-07-22',
-                'status_pengisian' => 'Final',
+                'status_pengisian' => 'Belum Lengkap',
                 'pt_mitra_negeri' => 'Institut Teknologi Bandung',
                 'prodi_pt_mitra_negeri' => 'Program Studi Teknik Elektro',
                 'prodi_pt_dalam_negeri' => 'Fakultas Teknik',
@@ -125,7 +129,8 @@ class ProposalSeeder extends Seeder
                 'id_bab3' => 5, // Assuming bab3 table has an appropriate ID
                 'id_reviewer1' => null, // Assuming reviewer table has an appropriate ID
                 'id_reviewer2' => null, // Assuming reviewer table has an appropriate ID
-                'id_status_berkas' => 4, // Assuming status_berkas table has an appropriate ID
+                'id_verifikator' => null, // Assuming verificator table has an appropriate ID
+                'id_status_berkas' => 5, // Assuming status_berkas table has an appropriate ID
             ],
         ];
 

@@ -35,7 +35,7 @@
         </div>
 
         <div class="card-body">
-            {{ $dataTable->table(['id' => 'proposal-table', 'class' => 'table table-striped table-hover']) }}
+            {!! $dataTable->table(['id' => 'proposal-table', 'class' => 'table table-striped table-hover'], true) !!}
         </div>
     </div>
 @endsection
@@ -53,5 +53,5 @@
 @endpush
 
 @push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    {!! $dataTable->scripts(attributes: ['type' => 'module']) !!}
 @endpush

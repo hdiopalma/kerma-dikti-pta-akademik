@@ -8,6 +8,7 @@ use App\Http\Controllers\UniversitasController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\ProposalController as AdminProposalController;
+use App\Http\Controllers\Verifikator\ProposalController as VerifikatorProposalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,7 @@ Route::middleware('auth')->group(function(){
         Route::post('cariProposal','cariProposal')->name('proposal.cari');
     });
 
+    //Akses Admin
     Route::prefix('admin')->middleware('role:1')->group(function(){
         //Admin Proposal
         Route::controller(AdminProposalController::class)->prefix('proposal')->group(function(){
@@ -114,7 +116,28 @@ Route::middleware('auth')->group(function(){
             Route::get('verifikatorTabelJSON','verifikatorTabelJSON')->name('admin.proposal.verifikatorTabelJSON');
 
         });
-        //Admin Proposal En
+        //Admin Proposal End
+    });
+
+    //Akses Verifikator
+    Route::prefix('verifikator')->middleware('role:4')->group(function(){
+        //Verifikator Proposal
+        Route::controller(VerifikatorProposalController::class)->prefix('proposal')->group(function(){
+            Route::get('','index')->name('verifikator.proposal');
+            Route::get('show/{id}','show')->name('verifikator.proposal.show');
+            Route::get('viewBab1/{id}','viewbab1')->name('verifikator.proposal.viewBab1');
+            Route::get('viewBab2/{id}','viewbab2')->name('verifikator.proposal.viewBab2');
+            Route::get('viewBab3/{id}','viewbab3')->name('verifikator.proposal.viewBab3');
+            Route::get('viewBab4/{id}','viewbab4')->name('verifikator.proposal.viewBab4');
+
+            //verifikasi
+            Route::post('verifikasi','verifikasi')->name('verifikator.proposal.verifikasi');
+
+            //Download path, not yet implemented, placeholder
+            Route::get('/download/{id}','download')->name('verifikator.proposal.download');
+
+        });
+        //Verifikator Proposal End
     });
 });
 

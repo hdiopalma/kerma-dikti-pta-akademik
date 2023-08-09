@@ -106,76 +106,78 @@
         <!-- /.Ajukan Reviewer 2 -->
         <hr style="margin: 0px">
 
-        
+
 
     </div>
 </div>
 
-<!-- Modal Verifikator sementara pake data reviewer dulu-->
-@isset($administrasiProposal['verifikatorTable'])
-    <div class="modal fade" id="modalVerifikatorTabel" tabindex="-1" aria-labelledby="modalVerifikatorTabelLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalVerifikatorTabelLabel">Ajukan Verifikator</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{ $administrasiProposal['verifikatorTable']->table(['id' => 'verifikatorTable', 'class' => 'table table-bordered table-hover table-striped']) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+@push('modals')
+    <!-- Modal Verifikator sementara pake data reviewer dulu-->
+    @isset($administrasiProposal['verifikatorTable'])
+        <div class="modal fade" id="modalVerifikatorTabel" tabindex="-1" aria-labelledby="modalVerifikatorTabelLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalVerifikatorTabelLabel">Ajukan Verifikator</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ $administrasiProposal['verifikatorTable']->table(['id' => 'verifikatorTable', 'class' => 'table table-bordered table-hover table-striped']) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endisset
-<!-- /.modal verifikator -->
+    @endisset
+    <!-- /.modal verifikator -->
 
-<!-- Modal Reviewer 1-->
-@isset($administrasiProposal['reviewer1Table'])
-    <div class="modal fade" id="modalReviewer1Tabel" tabindex="-1" aria-labelledby="modalReviewer1TabelLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalReviewer1TabelLabel">Ajukan Reviewer 1</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{ $administrasiProposal['reviewer1Table']->table(['id' => 'reviewer1Table', 'class' => 'table table-bordered table-hover table-striped nowrap']) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Modal Reviewer 1-->
+    @isset($administrasiProposal['reviewer1Table'])
+        <div class="modal fade" id="modalReviewer1Tabel" tabindex="-1" aria-labelledby="modalReviewer1TabelLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalReviewer1TabelLabel">Ajukan Reviewer 1</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ $administrasiProposal['reviewer1Table']->table(['id' => 'reviewer1Table', 'class' => 'table table-bordered table-hover table-striped nowrap']) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endisset
-<!-- /.modal reviewer 1 -->
+    @endisset
+    <!-- /.modal reviewer 1 -->
 
-<!-- Modal Reviewer 2-->
-@isset($administrasiProposal['reviewer2Table'])
-    <div class="modal fade" id="modalReviewer2Tabel" tabindex="-1" aria-labelledby="modalReviewer2TabelLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalReviewer2TabelLabel">Ajukan Reviewer 2</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{ $administrasiProposal['reviewer2Table']->table(['id' => 'reviewer2Table', 'class' => 'table table-bordered table-hover table-striped']) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <!-- Modal Reviewer 2-->
+    @isset($administrasiProposal['reviewer2Table'])
+        <div class="modal fade" id="modalReviewer2Tabel" tabindex="-1" aria-labelledby="modalReviewer2TabelLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalReviewer2TabelLabel">Ajukan Reviewer 2</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ $administrasiProposal['reviewer2Table']->table(['id' => 'reviewer2Table', 'class' => 'table table-bordered table-hover table-striped']) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endisset
-<!-- /.modal reviewer 2 -->
+    @endisset
+    <!-- /.modal reviewer 2 -->
+@endpush
 
 @push('scripts')
     {{ isset($administrasiProposal['reviewer1Table']) ? $administrasiProposal['reviewer1Table']->scripts(attributes: ['type' => 'module']) : '' }}

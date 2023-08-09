@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UniversitasSeeder::class,
             UserLevelSeeder::class,
             ReviewerSeeder::class,
+            VerifikatorSeeder::class,
             DaftarNegaraSeeder::class,
             UsersSeeder::class,
             StatusAkreditasiSeeder::class,

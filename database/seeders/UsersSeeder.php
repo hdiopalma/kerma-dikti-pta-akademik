@@ -26,6 +26,7 @@ class UsersSeeder extends Seeder
                 'status' => '1', // Active
                 'id_universitas' => 1, //'Universitas Gadjah Mada'
                 'id_reviewer' => null,
+                'id_verifikator' => null,
                 'id_level' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -42,6 +43,7 @@ class UsersSeeder extends Seeder
                 'status' => '1', // Active
                 'id_universitas' => 1, //'Universitas Gadjah Mada'
                 'id_reviewer' => null,
+                'id_verifikator' => null,
                 'id_level' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -58,6 +60,7 @@ class UsersSeeder extends Seeder
                 'status' => '1', // Active
                 'id_universitas' => 1, //'Universitas Gadjah Mada'
                 'id_reviewer' => null,
+                'id_verifikator' => null,
                 'id_level' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -74,7 +77,8 @@ class UsersSeeder extends Seeder
                 'status' => '1', // Active
                 'id_universitas' => null,
                 'id_reviewer' => null,
-                'id_level' => 3,
+                'id_verifikator' => null,
+                'id_level' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -88,8 +92,9 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('@Reviewer123'),
                 'status' => '1', // Active
                 'id_universitas' => null,
-                'id_reviewer' => 1, //'Budi Santoso'
-                'id_level' => 4,
+                'id_reviewer' => 1, 
+                'id_verifikator' => null,
+                'id_level' => 3,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -104,7 +109,42 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('@Reviewer123'),
                 'status' => '1', // Active
                 'id_universitas' => null,
-                'id_reviewer' => 2, //'Budi Santoso'
+                'id_reviewer' => 2, 
+                'id_verifikator' => null,
+                'id_level' => 3,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Seed test Verifikator 1
+        $user = User::where('email', '=','verifikator@verifikator.com')->first();
+        if($user === null){
+            $user = User::create([
+                'nama' => 'Verifikator 1',
+                'email' => 'verifikator@verifikator.com',
+                'password' => Hash::make('@Verifikator123'),
+                'status' => '1', // Active
+                'id_universitas' => null,
+                'id_reviewer' => null,
+                'id_verifikator' => 1,
+                'id_level' => 4,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Seed test Verifikator 2
+        $user = User::where('email', '=','verifikator2@verifikator.com')->first();
+        if($user === null){
+            $user = User::create([
+                'nama' => 'Verifikator 1',
+                'email' => 'verifikator2@verifikator.com',
+                'password' => Hash::make('@Verifikator123'),
+                'status' => '1', // Active
+                'id_universitas' => null,
+                'id_reviewer' => null,
+                'id_verifikator' => 2,
                 'id_level' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),

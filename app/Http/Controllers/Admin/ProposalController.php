@@ -74,26 +74,31 @@ class ProposalController extends Controller
 
         // Munculkan tabel atau fungsi berdasarkan status proposal, status masih asumsi
         switch ($proposal->statusBerkas->status) {
-            case 'Dalam Proses':
+            case 'Menunggu Verifikasi':
                 $administrasiProposal = [
                     'verifikatorTable' => $this->verifikatorTabel(app(HtmlBuilder::class), $id),
                 ];
                 break;
             case 'Dalam Proses Verifikasi':
                 $administrasiProposal = [
-                    //Jika sebelumnya user salah input, maka akan muncul tabel verifikator untuk ajukan ulang.
+                    
                     'verifikatorTable' => $this->verifikatorTabel(app(HtmlBuilder::class), $id),
                 ];
                 break;
-            case 'Ditolak Verifikator':
+            case 'Tidak Lolos Verifikasi':
                 $administrasiProposal = [
                     'verifikatorTable' => $this->verifikatorTabel(app(HtmlBuilder::class), $id),
                 ];
                 break;
-            case 'Diverifikasi':
+            case 'Diverifikasi, lanjut proses review':
                 $administrasiProposal = [
                     'reviewer1Table' => $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer1'),
                     'reviewer2Table' => $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer2'),
+                ];
+                break;
+            case 'Dalam Proses Review 1':
+                $administrasiProposal = [
+                    'reviewer1Table' => $this->reviewerTabel(app(HtmlBuilder::class), $id, 'aksi_reviewer1'),
                 ];
                 break;
             case 'Diverifikasi Reviewer 1':
@@ -117,7 +122,6 @@ class ProposalController extends Controller
         //return response()->json([compact('proposal', 'reviewer1Table')]);
         return view('admin.proposal.show', compact('proposal', 'administrasiProposal'));
     }
-
 
 
     public function viewbab1(Proposal $proposal, $id)
@@ -150,8 +154,6 @@ class ProposalController extends Controller
         $proposal = Proposal::with(
             'bab3',
             )->find(decrypt($id));
-
-        $reviewer = Reviewer::all();
         //return response()->json(['proposal' => $proposal, 'bab' => 3]);
         return view('admin.proposal.viewBab3', ['proposal' => $proposal,'bab' => 3]);
     }
@@ -161,8 +163,6 @@ class ProposalController extends Controller
         $proposal = Proposal::with(
             'bab4', 'bab4.kerjasama',
             )->find(decrypt($id));
-
-        $reviewer = Reviewer::all();
         //return response()->json(['proposal' => $proposal, 'bab' => 4]);
         return view('admin.proposal.viewBab4', ['proposal' => $proposal,'bab' => 4]);
     }

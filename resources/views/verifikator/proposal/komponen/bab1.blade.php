@@ -58,8 +58,8 @@
                                     Tinggi<code>*</code></div>
                                 <div class="col-sm-8">
                                     <div id="IzinOperasional" class="border-bottom border-grey pb-2 pt-2">
-                                        {!! isset($proposal->bab1->izin_operasional_pt) && trim($proposal->bab1->izin_operasional_pt != '')
-                                            ? $proposal->bab1->izin_operasional_pt
+                                        {!! isset($proposal->bab1->ijin_operasional_pt) && trim($proposal->bab1->ijin_operasional_pt != '')
+                                            ? $proposal->bab1->ijin_operasional_pt
                                             : "<b
                                                                                     class='text-red'>BELUM DIISI</b>" !!}
                                     </div>
@@ -70,7 +70,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_ijin_operasional_pt)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
+                                                        <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -103,7 +103,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_status_akreditasi_institusi)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}"
+                                                        <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -183,8 +183,8 @@
                                     Tinggi<code>*</code></div>
                                 <div class="col-sm-8">
                                     <div id="IzinOperasional" class="border-bottom border-grey pb-2 pt-2">
-                                        {!! isset($proposal->bab1->izin_operasional_pt_mitra)
-                                            ? $proposal->bab1->izin_operasional_pt_mitra
+                                        {!! isset($proposal->bab1->ijin_operasional_pt_mitra)
+                                            ? $proposal->bab1->ijin_operasional_pt_mitra
                                             : "<b class='text-red'>BELUM DIISI</b>" !!}
                                     </div>
                                     <br />
@@ -194,7 +194,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_ijin_operasional_pt_mitra)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
+                                                        <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -227,7 +227,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_status_akreditasi_institusi_mitra)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}"
+                                                        <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -248,8 +248,8 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <div id="PeringkatPTMitra" class="border-bottom border-grey pb-2 pt-2">
-                                        {!! isset($proposal->bab1->peringkat_pt_mitra) && trim($proposal->bab1->peringkat_pt_mitra != '')
-                                            ? $proposal->bab1->peringkat_pt_mitra
+                                        {!! isset($proposal->bab1->peringkat_internasional_mitra) && trim($proposal->bab1->peringkat_internasional_mitra != '')
+                                            ? $proposal->bab1->peringkat_internasional_mitra
                                             : "<b class='text-red'>BELUM DIISI</b>" !!}
                                     </div>
                                 </div>
@@ -334,7 +334,7 @@
                                         <div class="pt-2">
 
                                             @isset($proposal->bab1->scan_sk_akreditasi_prodi)
-                                                <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
+                                                <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
                                                     class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                             @else
@@ -351,7 +351,7 @@
                                     <div class="pt-2">
 
                                         @isset($proposal->bab1->scan_sk_akreditasi_prodi_mitra)
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
+                                            <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -368,7 +368,7 @@
                                     <div class="text-bold">PT</div>
                                     <div class="pt-2">
                                         @isset($proposal->bab1->scan_ijin_operasional_prodi)
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
+                                            <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -381,7 +381,7 @@
                                     <div class="text-bold">PT Mitra</div>
                                     <div class="pt-2">
                                         @isset($proposal->bab1->scan_ijin_operasional_prodi_mitra)
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
+                                            <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -411,9 +411,9 @@
                                 <div class="col-sm-4 col-form-label text-bold">Proposal Usulan Kerja Sama Perguruan
                                     Tinggi<code>*</code>
                                 </div>
-                                <div class="col-sm-8 pt-1">
+                                <div class="col-sm-8 pt-1 d-flex align-items-center">
                                     @isset($proposal->bab1->proposal_usulan_kerjsama)
-                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_proposal_usulan_kerjsama)) }}"
+                                        <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab1->scan_proposal_usulan_kerjsama)) }}"
                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                     @else
@@ -429,10 +429,10 @@
         </div>
         <div class="card-footer">
             <!-- Kembali -->
-            <a href="{{ route('admin.proposal.show', encrypt($proposal->id)) }}" class="btn btn-primary">Kembali ke
+            <a href="{{ route('verifikator.proposal.show', encrypt($proposal->id)) }}" class="btn btn-secondary">Kembali ke
                 halaman utama</a>
             <!-- Bab selanjutnya -->
-            <a href="{{ route('admin.proposal.viewBab2', encrypt($proposal->id)) }}"
+            <a href="{{ route('verifikator.proposal.viewBab2', encrypt($proposal->id)) }}"
                 class="btn btn-primary float-right">Selanjutnya</a>
         </div>
     </div>
