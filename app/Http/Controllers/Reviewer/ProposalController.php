@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Reviewer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Proposal;
 use App\Models\bab1;
@@ -13,6 +14,7 @@ use App\Models\bab4;
 use App\Models\statusBerkas;
 
 use App\Models\ReviewerBab1;
+use App\Models\ReviewerBab2;
 
 use App\DataTables\Reviewer\ProposalDataTable;
 
@@ -74,8 +76,11 @@ class ProposalController extends Controller
             'bab2',
             )->find(decrypt($id));
 
+        $reviewer_bab2 = ReviewerBab2::with(
+            'proposal',
+            )->where('id_proposal', decrypt($id))->get()->first();
         //return response()->json(['proposal' => $proposal, 'bab' => 2]);
-        return view('reviewer.proposal.viewBab2', ['proposal' => $proposal,'bab' => 2]);
+        return view('reviewer.proposal.viewBab2', ['proposal' => $proposal,'bab' => 2, 'reviewer_bab2' => $reviewer_bab2]);
     }
 
     public function viewbab3(Proposal $proposal, $id)
@@ -104,8 +109,8 @@ class ProposalController extends Controller
         $id_proposal = decrypt($request->id_proposal);
         $id_reviewer = auth()->user()->id_reviewer;
 
-        //validation rules required and maks 1800 char
-        $request->validate([
+        //Validation rules
+        $rules = [
             'komentar_nama_pt' => ['required', 'max:1800'],
             'komentar_alamat_pt' => ['required', 'max:1800'],
             'komentar_ijin_operasional_pt' => ['required', 'max:1800'],
@@ -129,39 +134,148 @@ class ProposalController extends Controller
             'komentar_scan_ijin_operasional_prodi' => ['required', 'max:1800'],
             'komentar_scan_ijin_operasional_prodi_mitra' => ['required', 'max:1800'],
             'komentar_proposal_usulan_kerjsama' => ['required', 'max:1800'],
-        ]);
+            'komentar_bab1' => ['required', 'max:1800'],
+            'status_proposal' => ['required'],
+        ];
 
-        //reviewer bab1 exist update else create
-        $reviewerBab1 = ReviewerBab1::updateOrCreate(
-            ['id_proposal' => $id_proposal, 'id_reviewer' => $id_reviewer],
-            [
-                'nama_pt' => $request->komentar_nama_pt,
-                'alamat_pt' => $request->komentar_alamat_pt,
-                'ijin_operasional_pt' => $request->komentar_ijin_operasional_pt,
-                'scan_ijin_operasional_pt' => $request->komentar_scan_ijin_operasional_pt,
-                'status_akreditasi_institusi' => $request->komentar_status_akreditasi_institusi,
-                'scan_status_akreditasi_institusi' => $request->komentar_scan_status_akreditasi_institusi,
-                'nama_pt_mitra' => $request->komentar_nama_pt_mitra,
-                'alamat_pt_mitra' => $request->komentar_alamat_pt_mitra,
-                'ijin_operasional_pt_mitra' => $request->komentar_ijin_operasional_pt_mitra,
-                'scan_ijin_operasional_pt_mitra' => $request->komentar_scan_ijin_operasional_pt_mitra,
-                'status_akreditasi_institusi_mitra' => $request->komentar_status_akreditasi_institusi_mitra,
-                'scan_status_akreditasi_institusi_mitra' => $request->komentar_scan_status_akreditasi_institusi_mitra,
-                'negara_mitra' => $request->komentar_negara_mitra,
-                'peringkat_internasional_mitra' => $request->komentar_peringkat_internasional_mitra,
-                'nama_prodi' => $request->komentar_nama_prodi,
-                'nama_prodi_mitra' => $request->komentar_nama_prodi_mitra,
-                'akreditasi_prodi' => $request->komentar_akreditasi_prodi,
-                'akreditasi_prodi_mitra' => $request->komentar_akreditasi_prodi_mitra,
-                'scan_sk_akreditasi_prodi' => $request->komentar_scan_sk_akreditasi_prodi,
-                'scan_sk_akreditasi_prodi_mitra' => $request->komentar_scan_sk_akreditasi_prodi_mitra,
-                'scan_ijin_operasional_prodi' => $request->komentar_scan_ijin_operasional_prodi,
-                'scan_ijin_operasional_prodi_mitra' => $request->komentar_scan_ijin_operasional_prodi_mitra,
-                'proposal_usulan_kerjsama' => $request->komentar_proposal_usulan_kerjsama,
-            ]);
+        //Custom validation messages
+        $messages = [
+            'required' => 'Kolom :attribute tidak boleh kosong!',
+            'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter!',
+        ];
 
-        //update status proposal
-        return redirect()->route('reviewer.proposal.viewBab2', encrypt($id_proposal))->with('success', 'Review BAB 1 berhasil disimpan');
+        //validate the request
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        //validate the request
+        $request->validate($rules, $messages);
+
+
+            //reviewer bab1 exist update else create
+            try {
+                $reviewerBab1 = ReviewerBab1::updateOrCreate(
+                    ['id_proposal' => $id_proposal, 'id_reviewer' => $id_reviewer],
+                    [
+                        'nama_pt' => $request->komentar_nama_pt,
+                        'alamat_pt' => $request->komentar_alamat_pt,
+                        'ijin_operasional_pt' => $request->komentar_ijin_operasional_pt,
+                        'scan_ijin_operasional_pt' => $request->komentar_scan_ijin_operasional_pt,
+                        'status_akreditasi_institusi' => $request->komentar_status_akreditasi_institusi,
+                        'scan_status_akreditasi_institusi' => $request->komentar_scan_status_akreditasi_institusi,
+                        'nama_pt_mitra' => $request->komentar_nama_pt_mitra,
+                        'alamat_pt_mitra' => $request->komentar_alamat_pt_mitra,
+                        'ijin_operasional_pt_mitra' => $request->komentar_ijin_operasional_pt_mitra,
+                        'scan_ijin_operasional_pt_mitra' => $request->komentar_scan_ijin_operasional_pt_mitra,
+                        'status_akreditasi_institusi_mitra' => $request->komentar_status_akreditasi_institusi_mitra,
+                        'scan_status_akreditasi_institusi_mitra' => $request->komentar_scan_status_akreditasi_institusi_mitra,
+                        'negara_mitra' => $request->komentar_negara_mitra,
+                        'peringkat_internasional_mitra' => $request->komentar_peringkat_internasional_mitra,
+                        'nama_prodi' => $request->komentar_nama_prodi,
+                        'nama_prodi_mitra' => $request->komentar_nama_prodi_mitra,
+                        'akreditasi_prodi' => $request->komentar_akreditasi_prodi,
+                        'akreditasi_prodi_mitra' => $request->komentar_akreditasi_prodi_mitra,
+                        'scan_sk_akreditasi_prodi' => $request->komentar_scan_sk_akreditasi_prodi,
+                        'scan_sk_akreditasi_prodi_mitra' => $request->komentar_scan_sk_akreditasi_prodi_mitra,
+                        'scan_ijin_operasional_prodi' => $request->komentar_scan_ijin_operasional_prodi,
+                        'scan_ijin_operasional_prodi_mitra' => $request->komentar_scan_ijin_operasional_prodi_mitra,
+                        'proposal_usulan_kerjsama' => $request->komentar_proposal_usulan_kerjsama,
+                        'komentar_bab1' => $request->komentar_bab1,
+                        'status_proposal' => $request->status_proposal,
+                    ]);
+
+                    //redirect to bab2
+                    return redirect()->route('reviewer.proposal.viewBab2', encrypt($id_proposal))->with('success', 'Review BAB 1 berhasil disimpan');
+
+            } catch (\Throwable $th) {
+                //return with error code
+                return redirect()->route('reviewer.proposal.viewBab1', encrypt($id_proposal))->with('error', 'Review BAB 1 gagal disimpan');
+            }
+            
+    }
+
+    public function simpanReviewBab2(Request $request){
+        $id_proposal = decrypt($request->id_proposal);
+        $id_reviewer = auth()->user()->id_reviewer;
+
+        //validate request
+        $rules = [
+            'komentar_ringkasan_mou' => ['required', 'max:1800'],
+            'komentar_file_mou' => ['required', 'max:1800'],
+            'komentar_no_moa' => ['required', 'max:1800'],
+            'komentar_deskripsi_singkat_moa' => ['required', 'max:1800'],
+            'komentar_tanggal_mulai_moa' => ['required', 'max:1800'],
+            'komentar_tanggal_berakhir_moa' => ['required', 'max:1800'],
+            'komentar_file_moa' => ['required', 'max:1800'],
+            'komentar_file_moa' => ['required', 'max:1800'],
+            'komentar_misi_program_kerjasama' => ['required', 'max:1800'],
+            'komentar_target_program_kerjasama' => ['required', 'max:1800'],
+            'komentar_alasan_pemilihan_mitra' => ['required', 'max:1800'],
+            'komentar_prinsip_kerjasama' => ['required', 'max:1800'],
+            'komentar_manfaat_kerjasama' => ['required', 'max:1800'],
+            'komentar_tantangan_pelaksanaan_kerjasama' => ['required', 'max:1800'],
+            'komentar_kepemilikan_hak_cipta_paten' => ['required', 'max:1800'],
+            'komentar_mekanisme_resiprokal' => ['required', 'max:1800'],
+            'komentar_keberlanjutan_kerjsama' => ['required', 'max:1800'],
+            'komentar_hak_dan_kewajiban' => ['required', 'max:1800'],
+            'komentar_hak_tercantum' => ['required', 'max:1800'],
+            'status_proposal' => ['required'],
+            'komentar_bab2' => ['required', 'max:1800']
+        ];
+
+        //Custom validation messages
+        $messages = [
+            'required' => 'Kolom :attribute tidak boleh kosong!',
+            'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter!',
+        ];
+
+        //validate the request
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+
+        try {
+            $reviewerBab2 = ReviewerBab2::updateOrCreate(
+                ['id_proposal' => $id_proposal, 'id_reviewer' => $id_reviewer],
+                [
+                    'ringkasan_mou' => $request->komentar_ringkasan_mou,
+                    'file_mou' => $request->komentar_file_mou,
+                    'no_moa' => $request->komentar_no_moa,
+                    'deskripsi_singkat_moa' => $request->komentar_deskripsi_singkat_moa,
+                    'tanggal_mulai_moa' => $request->komentar_tanggal_mulai_moa,
+                    'tanggal_berakhir_moa' => $request->komentar_tanggal_berakhir_moa,
+                    'file_moa' => $request->komentar_file_moa,
+                    'misi_program_kerjasama' => $request->komentar_misi_program_kerjasama,
+                    'target_program_kerjasama' => $request->komentar_target_program_kerjasama,
+                    'alasan_pemilihan_mitra' => $request->komentar_alasan_pemilihan_mitra,
+                    'prinsip_kerjasama' => $request->komentar_prinsip_kerjasama,
+                    'manfaat_kerjasama' => $request->komentar_manfaat_kerjasama,
+                    'tantangan_pelaksanaan_kerjasama' => $request->komentar_tantangan_pelaksanaan_kerjasama,
+                    'kepemilikan_hak_cipta_paten' => $request->komentar_kepemilikan_hak_cipta_paten,
+                    'mekanisme_resiprokal' => $request->komentar_mekanisme_resiprokal,
+                    'keberlanjutan_kerjsama' => $request->komentar_keberlanjutan_kerjsama,
+                    'hak_dan_kewajiban' => $request->komentar_hak_dan_kewajiban,
+                    'hak_tercantum' => $request->komentar_hak_tercantum,
+                    'status_proposal' => $request->status_proposal,
+                    'komentar_bab2' => $request->komentar_bab2
+                    
+                ]);
+
+                //redirect to bab3
+                return redirect()->route('reviewer.proposal.viewBab3', encrypt($id_proposal))->with('success', 'Review BAB 2 berhasil disimpan');
+
+        } catch (\Throwable $th) {
+            //return with error code
+            return redirect()->route('reviewer.proposal.viewBab2', encrypt($id_proposal))->with('error', 'Review BAB 2 gagal disimpan');
+        }
+
     }
 
     public function download($path)
