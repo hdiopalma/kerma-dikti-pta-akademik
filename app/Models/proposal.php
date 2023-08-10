@@ -58,4 +58,16 @@ class proposal extends Model
     public function reviewerBab1(){
         return $this->hasMany(ReviewerBab1::class, 'id_proposal');
     }
+
+    public function reviewerBab2(){
+        return $this->hasMany(ReviewerBab2::class, 'id_proposal');
+    }
+
+    public function reviewerBab3(){
+        return $this->hasMany(ReviewerBab3::class, 'id_proposal');
+    }
+
+    public function reviewerBab4(){
+        return $this->hasMany(ReviewerBab4::class, 'id_proposal');
+    }
 }

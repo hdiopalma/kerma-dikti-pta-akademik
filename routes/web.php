@@ -156,6 +156,7 @@ Route::middleware('auth')->group(function(){
             Route::post('simpanReviewBab1','simpanReviewBab1')->name('reviewer.proposal.simpanReviewBab1');
             Route::post('simpanReviewBab2','simpanReviewBab2')->name('reviewer.proposal.simpanReviewBab2');
             Route::post('simpanReviewBab3','simpanReviewBab3')->name('reviewer.proposal.simpanReviewBab3');
+            Route::post('simpanReviewBab4','simpanReviewBab4')->name('reviewer.proposal.simpanReviewBab4');
 
             //Download path, not yet implemented, placeholder
             Route::get('/download/{id}','download')->name('reviewer.proposal.download');

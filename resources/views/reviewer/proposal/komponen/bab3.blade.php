@@ -458,7 +458,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-sm-4 col-xs-12 col-form-label text-bold mt-3">Review BAB 2</div>
+                            <div class="col-sm-4 col-xs-12 col-form-label text-bold mt-3">Review BAB 3</div>
                             <div class="col-sm-8 col-xs-12 mt-3 mb-0">
                                 <!-- Text area komentar bab3 -->
                                 <textarea id="KomentarBab2" name="komentar_bab3" class="form-control @error('komentar_bab3') is-invalid @enderror"

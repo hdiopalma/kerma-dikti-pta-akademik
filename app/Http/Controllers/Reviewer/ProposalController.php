@@ -16,6 +16,7 @@ use App\Models\statusBerkas;
 use App\Models\ReviewerBab1;
 use App\Models\ReviewerBab2;
 use App\Models\ReviewerBab3;
+use App\Models\ReviewerBab4;
 
 
 use App\DataTables\Reviewer\ProposalDataTable;
@@ -102,12 +103,14 @@ class ProposalController extends Controller
         $proposal = Proposal::with(
             'bab4', 'bab4.kerjasama',
             )->find(decrypt($id));
-
+        $reviewer_bab4 = ReviewerBab4::with(
+            'proposal',
+            )->where('id_proposal', decrypt($id))->get()->first();
         //select id 1 3 4 5 of status berkas
         $statusBerkas = statusBerkas::whereIn('id', [8, 9])->get();
         
         //return response()->json(['proposal' => $proposal, 'bab' => 4]);
-        return view('reviewer.proposal.viewBab4', ['proposal' => $proposal,'bab' => 4, 'statusBerkas' => $statusBerkas]);
+        return view('reviewer.proposal.viewBab4', ['proposal' => $proposal,'bab' => 4, 'statusBerkas' => $statusBerkas, 'reviewer_bab4' => $reviewer_bab4]);
     }
 
     public function simpanReviewBab1(Request $request){
@@ -338,6 +341,78 @@ class ProposalController extends Controller
             //return with error code
             return redirect()->route('reviewer.proposal.viewBab3', encrypt($id_proposal))->with('error', 'Review BAB 3 gagal disimpan');
         }
+    }
+
+    public function simpanReviewBab4(Request $request){
+        $id_proposal = decrypt($request->id_proposal);
+        $id_reviewer = auth()->user()->id_reviewer;
+
+        //validate request
+        $rules = [
+            'komentar_rencana_pelaksanaan_pembelajaran' => ['required', 'max:1800'],
+            'komentar_scan_desain_kurikulum_pt' => ['required', 'max:1800'],
+            'komentar_scan_desain_kurikulum_mitra' => ['required', 'max:1800'],
+            'komentar_scan_desain_kurikulum_gabungan' => ['required', 'max:1800'],
+            'komentar_jenis_kerjasama' => ['required', 'max:1800'],
+            'komentar_jumlah_ijazah_terbit' => ['required', 'max:1800'],
+            'komentar_nama_ttd_ijazah_pt' => ['required', 'max:1800'],
+            'komentar_jabatan_ttd_ijazah_pt' => ['required', 'max:1800'],
+            'komentar_nama_ttd_ijazah_mitra' => ['required', 'max:1800'],
+            'komentar_jabatan_ttd_ijazah_mitra' => ['required', 'max:1800'],
+            'komentar_kriteria_calon_mahasiswa' => ['required', 'max:1800'],
+            'komentar_proses_seleksi' => ['required', 'max:1800'],
+            'komentar_skema_pembiayaan' => ['required', 'max:1800'],
+            'komentar_file_penjadwalan_kerjasama' => ['required', 'max:1800'],
+            'komentar_file_skpi' => ['required', 'max:1800'],
+            'komentar_keberlanjutan_studi_lanjut' => ['required', 'max:1800'],
+            'komentar_studi_lanjut_moa' => ['required', 'max:1800'],
+            'status_proposal' => ['required'],
+            'komentar_bab4' => ['required', 'max:1800']
+        ];
+
+        //Custom validation messages
+        $messages = [
+            'required' => 'Kolom :attribute tidak boleh kosong!',
+            'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter!',
+        ];
+
+        //validate the request
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $reviewerBab4 = ReviewerBab4::updateOrCreate(
+                ['id_proposal' => $id_proposal, 'id_reviewer' => $id_reviewer],
+                [
+                    'rencana_pelaksanaan_pembelajaran' => $request->komentar_rencana_pelaksanaan_pembelajaran,
+                    'scan_desain_kurikulum_pt' => $request->komentar_scan_desain_kurikulum_pt,
+                    'scan_desain_kurikulum_mitra' => $request->komentar_scan_desain_kurikulum_mitra,
+                    'scan_desain_kurikulum_gabungan' => $request->komentar_scan_desain_kurikulum_gabungan,
+                    'jenis_kerjasama' => $request->komentar_jenis_kerjasama,
+                    'jumlah_ijazah_terbit' => $request->komentar_jumlah_ijazah_terbit,
+                    'nama_ttd_ijazah_pt' => $request->komentar_nama_ttd_ijazah_pt,
+                    'jabatan_ttd_ijazah_pt' => $request->komentar_jabatan_ttd_ijazah_pt,
+                    'nama_ttd_ijazah_mitra' => $request->komentar_nama_ttd_ijazah_mitra,
+                    'jabatan_ttd_ijazah_mitra' => $request->komentar_jabatan_ttd_ijazah_mitra,
+                    'kriteria_calon_mahasiswa' => $request->komentar_kriteria_calon_mahasiswa,
+                    'proses_seleksi' => $request->komentar_proses_seleksi,
+                    'skema_pembiayaan' => $request->komentar_skema_pembiayaan,
+                    'file_penjadwalan_kerjasama' => $request->komentar_file_penjadwalan_kerjasama,
+                    'file_skpi' => $request->komentar_file_skpi,
+                    'keberlanjutan_studi_lanjut' => $request->komentar_keberlanjutan_studi_lanjut,
+                    'studi_lanjut_moa' => $request->komentar_studi_lanjut_moa,
+                    'status_proposal' => $request->status_proposal,
+                    'komentar_bab4' => $request->komentar_bab4
+                ]);
+                
+                return redirect()->route('reviewer.proposal.show', encrypt($id_proposal))->with('success', 'Review BAB 4 berhasil disimpan');
+            } catch (\Throwable $th) {
+                //return th
+                //return response()->json($th);
+                return redirect()->route('reviewer.proposal.viewBab4', encrypt($id_proposal))->with('error', 'Review BAB 4 gagal disimpan');
+            }
     }
 
     public function download($path)
