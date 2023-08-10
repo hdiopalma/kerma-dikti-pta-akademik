@@ -95,7 +95,7 @@
                                 <!-- Izin Operasional -->
                                 <div class="form-group row">
                                     <div class="col-sm-4 col-form-label text-bold">Izin Operasional Perguruan
-                                        Tinggi<code>*</code></div>
+                                        Tinggi</div>
                                     <div class="col-sm-8">
                                         <div id="IzinOperasional" class="border-bottom border-grey pb-2 pt-2">
                                             {!! isset($proposal->bab1->ijin_operasional_pt) && trim($proposal->bab1->ijin_operasional_pt != '')
@@ -258,7 +258,7 @@
 
                                 <!-- Nama Perguruan Tinggi -->
                                 <div class="form-group row">
-                                    <div class="col-sm-4 col-form-label text-bold">Nama Perguruan Tinggi<code>*</code>
+                                    <div class="col-sm-4 col-form-label text-bold">Nama Perguruan Tinggi
                                     </div>
                                     <div class="col-sm-8">
                                         <div id="NamaPTMitra" class="border-bottom border-grey pb-2 pt-2">
@@ -290,7 +290,7 @@
                                 <!-- Alamat Perguruan Tinggi -->
                                 <div class="form-group row">
                                     <div class="col-sm-4 col-form-label text-bold">Alamat Perguruan
-                                        Tinggi<code>*</code>
+                                        Tinggi
                                     </div>
                                     <div class="col-sm-8">
                                         <div id="AlamatPTMitra" class="border-bottom border-grey pb-2 pt-2">
@@ -319,7 +319,7 @@
 
                                 <!-- Negara -->
                                 <div class="form-group row">
-                                    <div class="col-sm-4 col-form-label text-bold">Negara<code>*</code></div>
+                                    <div class="col-sm-4 col-form-label text-bold">Negara</div>
                                     <div class="col-sm-8">
                                         <div id="NegaraPTMitra" class="border-bottom border-grey pb-2 pt-2">
                                             {!! isset($proposal->bab1->negara_mitra->name)
@@ -350,7 +350,7 @@
                                 <!-- Izin Operasional Perguruan Tinggi-->
                                 <div class="form-group row">
                                     <div class="col-sm-4 col-form-label text-bold">Izin Operasional Perguruan
-                                        Tinggi<code>*</code></div>
+                                        Tinggi</div>
                                     <div class="col-sm-8">
                                         <div id="IzinOperasional" class="border-bottom border-grey pb-2 pt-2">
                                             {!! isset($proposal->bab1->ijin_operasional_pt_mitra)
@@ -424,7 +424,7 @@
                                 <!-- Status Akreditasi Institusi -->
                                 <div class="form-group row">
                                     <div class="col-sm-4 col-form-label text-bold">Status Akreditasi
-                                        Institusi<code>*</code>
+                                        Institusi
                                     </div>
                                     <div class="col-sm-8">
                                         <div id="StatusAkreditasi" class="border-bottom border-grey pb-2 pt-2">
@@ -498,7 +498,7 @@
                                 <!-- Peringkat Internasional -->
                                 <div class="form-group row">
                                     <div class="col-sm-4 col-form-label text-bold">Peringkat
-                                        Internasional<code>*</code>
+                                        Internasional
                                     </div>
                                     <div class="col-sm-8">
                                         <div id="PeringkatPTMitra" class="border-bottom border-grey pb-2 pt-2">
@@ -546,7 +546,7 @@
                             <div class="accordion-body">
                                 <!-- Nama Prodi -->
                                 <div class="row">
-                                    <div class="col-sm-4 col-form-label text-bold">Nama Prodi<code>*</code>
+                                    <div class="col-sm-4 col-form-label text-bold">Nama Prodi
                                     </div>
                                     <div class="col-sm-4 border-right pt-1">
 
@@ -600,7 +600,7 @@
 
                                 <!-- Akreditasi Prodi -->
                                 <div class="row">
-                                    <div class="col-sm-4 col-form-label text-bold">Akreditasi Prodi<code>*</code>
+                                    <div class="col-sm-4 col-form-label text-bold">Akreditasi Prodi
                                     </div>
                                     <div class="col-sm-4 border-right pt-1">
 
@@ -730,7 +730,7 @@
 
                                 <!-- Izin Operasional Prodi -->
                                 <div class="row">
-                                    <div class="col-sm-4 col-form-label text-bold">Izin Operasional Prodi<code>*</code>
+                                    <div class="col-sm-4 col-form-label text-bold">Izin Operasional Prodi
                                     </div>
                                     <div class="col-sm-4 border-right pt-1">
                                         <div class="text-bold">PT</div>

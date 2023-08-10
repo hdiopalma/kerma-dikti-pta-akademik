@@ -40,7 +40,7 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#panelMM-collapse" aria-expanded="false"
                                 aria-controls="panelMM-collapse">
-                                A. MOU & MOA
+                                <div class="text-bold text-primary">A. MOU & MOA</div>
                             </button>
                         </h2>
                         <div id="panelMM-collapse" class="accordion-collapse collapse"

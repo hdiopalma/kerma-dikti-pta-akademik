@@ -15,6 +15,8 @@ use App\Models\statusBerkas;
 
 use App\Models\ReviewerBab1;
 use App\Models\ReviewerBab2;
+use App\Models\ReviewerBab3;
+
 
 use App\DataTables\Reviewer\ProposalDataTable;
 
@@ -88,8 +90,11 @@ class ProposalController extends Controller
         $proposal = Proposal::with(
             'bab3',
             )->find(decrypt($id));
+        $reviewer_bab3 = ReviewerBab3::with(
+            'proposal',
+            )->where('id_proposal', decrypt($id))->get()->first();
         //return response()->json(['proposal' => $proposal, 'bab' => 3]);
-        return view('reviewer.proposal.viewBab3', ['proposal' => $proposal,'bab' => 3]);
+        return view('reviewer.proposal.viewBab3', ['proposal' => $proposal,'bab' => 3, 'reviewer_bab3' => $reviewer_bab3]);
     }
 
     public function viewbab4(Proposal $proposal, $id)
@@ -239,8 +244,6 @@ class ProposalController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
-
         try {
             $reviewerBab2 = ReviewerBab2::updateOrCreate(
                 ['id_proposal' => $id_proposal, 'id_reviewer' => $id_reviewer],
@@ -276,6 +279,65 @@ class ProposalController extends Controller
             return redirect()->route('reviewer.proposal.viewBab2', encrypt($id_proposal))->with('error', 'Review BAB 2 gagal disimpan');
         }
 
+    }
+
+    public function simpanReviewBab3(Request $request){
+        $id_proposal = decrypt($request->id_proposal);
+        $id_reviewer = auth()->user()->id_reviewer;
+
+        //validate request
+        $rules = [
+            'komentar_deskripsi_singkat_kesiapan_sdm_pt' => ['required', 'max:1800'],
+            'komentar_deskripsi_singkat_kesiapan_sdm_mitra' => ['required', 'max:1800'],
+            'komentar_jumlah_dosen_terlibat_pt' => ['required', 'max:1800'],
+            'komentar_jumlah_dosen_terlibat_mitra' => ['required', 'max:1800'],
+            'komentar_file_data_dosen_terlibat_pt' => ['required', 'max:1800'],
+            'komentar_file_data_dosen_terlibat_mitra' => ['required', 'max:1800'],
+            'komentar_deskripsi_singkat_pt' => ['required', 'max:1800'],
+            'komentar_deskripsi_singkat_mitra' => ['required', 'max:1800'],
+            'komentar_file_lampiran_sarana_prasarana_pt' => ['required', 'max:1800'],
+            'komentar_file_lampiran_sarana_prasarana_mitra' => ['required', 'max:1800'],
+            'status_proposal' => ['required'],
+            'komentar_bab3' => ['required', 'max:1800']
+        ];
+
+        //Custom validation messages
+        $messages = [
+            'required' => 'Kolom :attribute tidak boleh kosong!',
+            'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter!',
+        ];
+
+        //validate the request
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $reviewerBab3 = ReviewerBab3::updateOrCreate(
+                ['id_proposal' => $id_proposal, 'id_reviewer' => $id_reviewer],
+                [
+                    'deskripsi_singkat_kesiapan_sdm_pt' => $request->komentar_deskripsi_singkat_kesiapan_sdm_pt,
+                    'deskripsi_singkat_kesiapan_sdm_mitra' => $request->komentar_deskripsi_singkat_kesiapan_sdm_mitra,
+                    'jumlah_dosen_terlibat_pt' => $request->komentar_jumlah_dosen_terlibat_pt,
+                    'jumlah_dosen_terlibat_mitra' => $request->komentar_jumlah_dosen_terlibat_mitra,
+                    'file_data_dosen_terlibat_pt' => $request->komentar_file_data_dosen_terlibat_pt,
+                    'file_data_dosen_terlibat_mitra' => $request->komentar_file_data_dosen_terlibat_mitra,
+                    'deskripsi_singkat_pt' => $request->komentar_deskripsi_singkat_pt,
+                    'deskripsi_singkat_mitra' => $request->komentar_deskripsi_singkat_mitra,
+                    'file_lampiran_sarana_prasarana_pt' => $request->komentar_file_lampiran_sarana_prasarana_pt,
+                    'file_lampiran_sarana_prasarana_mitra' => $request->komentar_file_lampiran_sarana_prasarana_mitra,
+                    'status_proposal' => $request->status_proposal,
+                    'komentar_bab3' => $request->komentar_bab3
+                ]);
+
+                //redirect to bab3
+                return redirect()->route('reviewer.proposal.viewBab4', encrypt($id_proposal))->with('success', 'Review BAB 3 berhasil disimpan');
+
+        } catch (\Throwable $th) {
+            //return with error code
+            return redirect()->route('reviewer.proposal.viewBab3', encrypt($id_proposal))->with('error', 'Review BAB 3 gagal disimpan');
+        }
     }
 
     public function download($path)
