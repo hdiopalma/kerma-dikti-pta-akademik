@@ -13,6 +13,7 @@ use App\Models\bab3;
 use App\Models\bab4;
 use App\Models\statusBerkas;
 
+use App\Models\Reviewer;
 use App\Models\ReviewerBab1;
 use App\Models\ReviewerBab2;
 use App\Models\ReviewerBab3;
@@ -30,27 +31,35 @@ class ProposalController extends Controller
 
     public function show($id)
     {
+
+        $id_proposal = decrypt($id);
+        $id_reviewer = auth()->user()->id_reviewer;
+
         $proposal = Proposal::with(
             'statusBerkas',
             'universitas',
             'kerjasama',
-            )->find(decrypt($id));
+            )->find($id_proposal);
 
-        /**
-         * Status Berkas:
-         * 1 = 
-         * 2 = 
-         * 3 = 
-         * 4 = 
-         * 5 = Dalam Pengisian
-         * 6 = Menunggu Verifikasi
-         * 7 = Dalam Proses Verifikasi
-         * 8 = Diverifikasi
-         * 9 = Dan lain lain, masih asumsi, nanti diganti yang official.
-         */
+        $reviewer = [
+            'bab1' => ReviewerBab1::where('id_proposal', $id_proposal)
+                        ->where('id_reviewer', $id_reviewer)
+                        ->first(),
+            'bab2' => ReviewerBab2::where('id_proposal', $id_proposal)
+                        ->where('id_reviewer', $id_reviewer)
+                        ->first(),
+            'bab3' => ReviewerBab3::where('id_proposal', $id_proposal)
+                        ->where('id_reviewer', $id_reviewer)
+                        ->first(),
+            'bab4' => ReviewerBab4::where('id_proposal', $id_proposal)
+                        ->where('id_reviewer', $id_reviewer)
+                        ->first(),
+        ];    
 
-        return view('reviewer.proposal.show', compact('proposal'));
-        return response()->json($proposal);
+        $status_proposal = ['' => '-- Pilih Status --', 12 => 'Revisi', 18 => 'Disetujui', 15 => 'Ditolak'];
+    
+        return view('reviewer.proposal.show', ['proposal' => $proposal, 'reviewer' => $reviewer, 'status_proposal' => $status_proposal]);
+        //return response()->json(['proposal' => $proposal, 'reviewer' => $reviewer]);
     }
 
     public function viewbab1(Proposal $proposal, $id)
@@ -66,9 +75,10 @@ class ProposalController extends Controller
         //$reviewer = Reviewer::all();
         //return response()->json(['proposal' => $proposal]);
 
-        $reviewer_bab1 = ReviewerBab1::with(
-            'proposal',
-            )->where('id_proposal', decrypt($id))->get()->first();
+        $reviewer_bab1 = ReviewerBab1::with('proposal')
+                            ->where('id_proposal', decrypt($id))
+                            ->where('id_reviewer', auth()->user()->id_reviewer)
+                            ->get()->first();
         return view('reviewer.proposal.viewBab1', ['proposal' => $proposal,'bab' => 1, 'reviewer_bab1' => $reviewer_bab1]);
         //return response()->json(['proposal' => $proposal, 'bab' => 1, 'reviewer_bab1' => $reviewer_bab1]);
     }
@@ -81,7 +91,7 @@ class ProposalController extends Controller
 
         $reviewer_bab2 = ReviewerBab2::with(
             'proposal',
-            )->where('id_proposal', decrypt($id))->get()->first();
+            )->where('id_proposal', decrypt($id))->where('id_reviewer', auth()->user()->id_reviewer)->get()->first();
         //return response()->json(['proposal' => $proposal, 'bab' => 2]);
         return view('reviewer.proposal.viewBab2', ['proposal' => $proposal,'bab' => 2, 'reviewer_bab2' => $reviewer_bab2]);
     }
@@ -93,7 +103,7 @@ class ProposalController extends Controller
             )->find(decrypt($id));
         $reviewer_bab3 = ReviewerBab3::with(
             'proposal',
-            )->where('id_proposal', decrypt($id))->get()->first();
+            )->where('id_proposal', decrypt($id))->where('id_reviewer', auth()->user()->id_reviewer)->get()->first();
         //return response()->json(['proposal' => $proposal, 'bab' => 3]);
         return view('reviewer.proposal.viewBab3', ['proposal' => $proposal,'bab' => 3, 'reviewer_bab3' => $reviewer_bab3]);
     }
@@ -105,7 +115,7 @@ class ProposalController extends Controller
             )->find(decrypt($id));
         $reviewer_bab4 = ReviewerBab4::with(
             'proposal',
-            )->where('id_proposal', decrypt($id))->get()->first();
+            )->where('id_proposal', decrypt($id))->where('id_reviewer', auth()->user()->id_reviewer)->get()->first();
         //select id 1 3 4 5 of status berkas
         $statusBerkas = statusBerkas::whereIn('id', [8, 9])->get();
         
@@ -415,10 +425,34 @@ class ProposalController extends Controller
             }
     }
 
+    public function simpanReviewProposal(Request $request){
+        $id_proposal = decrypt($request->id_proposal);
+
+        $rules = ['status_proposal' => ['required'], 'komentar' => ['required', 'max:1800']];
+        $messages = ['required' => 'Kolom :attribute tidak boleh kosong!', 'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter!'];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) { return redirect()->back()->withErrors($validator)->withInput(); }
+
+        try {
+            //update status proposal
+            $proposal = Proposal::find($id_proposal);
+            $proposal->id_status_berkas = $request->status_proposal;
+            $proposal->komentar = $request->komentar;
+            $proposal->save();
+            return redirect()->route('reviewer.proposal.show', encrypt($id_proposal))->with('success', 'Review proposal berhasil disimpan');
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
+    }
+
     public function download($path)
     {
         $path = decrypt($path);
-        return response()->download(storage_path('app/public/' . $path));
+        $file_name = basename($path);
+        if(!file_exists(public_path($path))){
+            return redirect()->back()->with('error', 'File tidak ditemukan');
+        }
+        return response()->file(public_path($path), ['Content-Disposition' => 'inline; filename="'.$file_name.'"']);
     }
 
 }

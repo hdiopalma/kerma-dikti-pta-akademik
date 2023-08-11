@@ -8,6 +8,7 @@ use App\Models\bab3;
 use App\Models\bab4;
 use App\Models\Reviewer;
 use App\Models\Verifikator;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -210,7 +211,11 @@ class ProposalController extends Controller
     public function download($path)
     {
         $path = decrypt($path);
-        return response()->download(storage_path('app/public/' . $path));
+        $file_name = basename($path);
+        if(!file_exists(public_path($path))){
+            return redirect()->back()->with('error', 'File tidak ditemukan');
+        }
+        return response()->file(public_path($path), ['Content-Disposition' => 'inline; filename="'.$file_name.'"']);
     }
 
     /**

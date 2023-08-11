@@ -82,7 +82,7 @@
                                     <div class="col-sm-8 d-flex align-items-center">
                                         <div id="BerkasMOU" class="pt-1">
                                             @if (isset($proposal->bab2->file_mou) && trim($proposal->bab2->file_mou) !== '')
-                                                <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab2->file_mou)) }}"
+                                                <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab2->file_mou)) }}"
                                                     class="btn btn-primary btn-sm">Download <i
                                                         class="fas fa-file-pdf text-white"></i></a>
                                             @else
@@ -253,7 +253,7 @@
                                         <div id="BerkasMOA" class="pt-1">
 
                                             @if (isset($proposal->bab2->file_moa) && trim($proposal->bab2->file_moa) !== '')
-                                                <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab2->file_moa)) }}"
+                                                <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab2->file_moa)) }}"
                                                     class="btn btn-primary btn-sm">Download <i
                                                         class="fas fa-file-pdf text-white"></i></a>
                                             @else

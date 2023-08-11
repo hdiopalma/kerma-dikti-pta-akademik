@@ -4,18 +4,18 @@
 
 @section('contents')
 
-<!-- DataTales Example -->
+@section('breadcrumb')
+<ul class="breadcrumb col-lg-5 col-md-4 col-4">
+    <li class="breadcrumb-item">
+        <a href=""><i class="fas fa-home"></i></a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="">Pengajuan Izin Kerja Sama</a>
+    </li>
+</ul>
+@endsection
 
-<div class="header-body">
-	<ul class="breadcrumb col-lg-5 col-md-4 col-4">
-		<li class="breadcrumb-item">
-			<a href=""><i class="fas fa-home"></i></a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="">Pengajuan Izin Kerja Sama</a>
-		</li>
-	</ul>
-</div>
+<!-- DataTales Example -->
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -24,7 +24,7 @@
     
     <div class="card-body">
        
-        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#myModalNorm">+ Pengajuan Baru</button>
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#myModalNorm">+ Pengajuan Baru</button>
 
         <div class="form-row align-items-center">
             
@@ -206,8 +206,77 @@
         </div>
     </div>
 </div>
-
-
-
-
 @endsection
+
+@push('scripts')
+<script type="module">
+    $(function(){
+        $(document).on('click','#hapus', function(e){
+            //e.preventDefault();
+            var link = $(this).attr("data-id");
+            Swal.fire({
+                    title: 'Apakah anda yakin untuk menghapus data ini ?',
+                    text: "data yang sudah dihapus tidak dapat kembali !",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        //Swal.fire('Terhapus !','Proposal anda telah kami hapus.','success')}
+                        window.location = link
+                        }
+                    });
+        });
+
+        $(document).on('click','#ajukanProposal', function(e){
+            //e.preventDefault();
+            var link = $(this).attr("data-id");
+            Swal.fire({
+                    title: 'Apakah anda sudah yakin untuk mengajukan proposal ini ?',
+                    text: "proposal yang sudah diajukan, tidak dapat diubah kembali !",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Ajukan'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        //Swal.fire('Terhapus !','Proposal anda telah kami hapus.','success')}
+                        window.location = link
+                        }
+                    });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $("#showData").change(function(){
+        //console.log(); 
+        var id = $(this).val();
+        var url = '{{ route("proposal.showAjax", ":id") }}';
+        url = url.replace(':id', id);
+
+        location.href = url;
+    
+    });
+
+    $("#showDataUniversitas").change(function(){
+        //console.log(); 
+        var id = $(this).val();
+        var url = '{{ route("universitas.showAjax", ":id") }}';
+        url = url.replace(':id', id);
+        location.href = url;
+    
+    });
+
+    $(document).on("click", ".open-AddBookDialog", function () {
+    var judul = $(this).data('id');
+    var idProposal = $(this).data('id2');
+    $(".modal-body #judul").val( judul );       
+    $(".modal-body #idProposal").val( idProposal );
+    });
+
+</script>
+@endpush

@@ -117,6 +117,10 @@ class ProposalController extends Controller
     public function download($path)
     {
         $path = decrypt($path);
-        return response()->download(storage_path('app/public/' . $path));
+        $file_name = basename($path);
+        if(!file_exists(public_path($path))){
+            return redirect()->back()->with('error', 'File tidak ditemukan');
+        }
+        return response()->file(public_path($path), ['Content-Disposition' => 'inline; filename="'.$file_name.'"']);
     }
 }

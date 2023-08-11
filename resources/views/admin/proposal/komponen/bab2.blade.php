@@ -58,7 +58,7 @@
                                 <div class="col-sm-8">
                                     <div id="BerkasMOU" class="pb-1 pt-1">
                                         @if (isset($proposal->bab2->file_mou) && trim($proposal->bab2->file_mou) !== '')
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab2->file_mou)) }}"
+                                            <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab2->file_mou)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                     class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -126,7 +126,7 @@
                                 <div class="col-sm-8">
                                     <div id="BerkasMOA" class="pb-1 pt-1">
                                         @if (isset($proposal->bab2->file_moa) && trim($proposal->bab2->file_moa) !== '')
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab2->file_moa)) }}"
+                                            <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab2->file_moa)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                     class="fas fa-file-pdf text-white"></i></a>
                                         @else

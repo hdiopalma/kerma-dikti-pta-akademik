@@ -16,6 +16,8 @@ use App\Models\negara;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 class ProposalController extends Controller
 {
     

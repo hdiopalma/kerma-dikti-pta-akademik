@@ -131,7 +131,7 @@
                                         <div class="input-group">
                                             <div class="pt-1">
                                                 @isset($proposal->bab1->scan_ijin_operasional_pt)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -205,7 +205,7 @@
                                         <div class="input-group">
                                             <div class=" pt-1">
                                                 @isset($proposal->bab1->scan_status_akreditasi_institusi)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -385,7 +385,7 @@
                                         <div class="input-group">
                                             <div class=" pt-1">
                                                 @isset($proposal->bab1->scan_ijin_operasional_pt_mitra)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -459,7 +459,7 @@
                                         <div class="input-group">
                                             <div class=" pt-1">
                                                 @isset($proposal->bab1->scan_status_akreditasi_institusi_mitra)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -661,7 +661,7 @@
                                         <div class="form-group d-flex justify-content-start">
                                             <div class=" pt-1">
                                                 @isset($proposal->bab1->scan_sk_akreditasi_prodi)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -681,7 +681,7 @@
                                         <div class="form-group d-flex justify-content-start">
                                             <div class=" pt-1">
                                                 @isset($proposal->bab1->scan_sk_akreditasi_prodi_mitra)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -737,7 +737,7 @@
                                         <div class="form-group d-flex justify-content-start">
                                             <div class=" pt-1">
                                                 @isset($proposal->bab1->scan_ijin_operasional_prodi)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -759,7 +759,7 @@
                                         <div class="form-group d-flex justify-content-start">
                                             <div class=" pt-1">
                                                 @isset($proposal->bab1->scan_ijin_operasional_prodi_mitra)
-                                                    <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
+                                                    <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -833,7 +833,7 @@
                                         </div>
                                         <div class="pt-2 pl-2">
                                             @isset($proposal->bab1->proposal_usulan_kerjsama)
-                                                <a href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->proposal_usulan_kerjsama)) }}"
+                                                <a target="_blank" href="{{ route('reviewer.proposal.download', encrypt($proposal->bab1->proposal_usulan_kerjsama)) }}"
                                                     class="btn btn-primary btn-sm">Download <i
                                                         class="fas fa-file-pdf text-white"></i></a>
                                             @else
@@ -922,3 +922,5 @@
         </form>
     </div>
 </div>
+
+<!-- Hampir 1000 line, semoga tidak ada bug :) -->

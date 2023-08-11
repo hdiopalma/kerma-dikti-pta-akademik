@@ -49,8 +49,10 @@
 
         @stack('modals')
 
+        @include('sweetalert::alert')
+
         @stack('scripts')
 
-        @include('sweetalert::alert')
+        
     </body>
 </html>

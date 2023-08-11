@@ -4,7 +4,7 @@
 
     // Home (Dashboard)
     Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
-        $trail->push('Dashboard', route('dashboard'));
+        $trail->push('&nbsp; Dashboard', route('dashboard'));
     });
 
     // (Admin) Home > Proposal

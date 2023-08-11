@@ -43,7 +43,7 @@
                                             Kurikulum Prodi
                                             <div id="KurikulumPT" class="pb-2 pt-2 pl-0 pr-2">
                                                 @if (isset($proposal->bab4->scan_desain_kurikulum_pt) && trim($proposal->bab4->scan_desain_kurikulum_pt) !== '')
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab4->scan_desain_kurikulum_pt)) }}"
+                                                    <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab4->scan_desain_kurikulum_pt)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -58,7 +58,7 @@
                                             Kurikulum Prodi
                                             <div id="KurikulumPTMitra" class="pb-2 pt-2">
                                                 @if (isset($proposal->bab4->scan_desain_kurikulum_mitra) && trim($proposal->bab4->scan_desain_kurikulum_mitra) !== '')
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab4->scan_desain_kurikulum_mitra)) }}"
+                                                    <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab4->scan_desain_kurikulum_mitra)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -74,7 +74,7 @@
                                             <div id="KurikulumGabungan" class="pb-2 pt-2">
                                                 @if (isset($proposal->bab4->scan_desain_kurikulum_gabungan) &&
                                                         trim($proposal->bab4->scan_desain_kurikulum_gabungan) !== '')
-                                                    <a href="{{ route('admin.proposal.download', encrypt($proposal->bab4->scan_desain_kurikulum_gabungan)) }}"
+                                                    <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab4->scan_desain_kurikulum_gabungan)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -199,7 +199,7 @@
                                 <div class="col-sm-9 d-flex align-items-center">
                                     <div id="BerkasPenjadwalanProgramKerjasama" class="pb-2 pt-2">
                                         @if (isset($proposal->bab4->file_penjadwalan_kerjasama) && trim($proposal->bab4->file_penjadwalan_kerjasama) !== '')
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab4->file_penjadwalan_kerjasama)) }}"
+                                            <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab4->file_penjadwalan_kerjasama)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                     class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -217,7 +217,7 @@
                                 <div class="col-sm-9 d-flex align-items-center">
                                     <div id="BerkasSKPI" class="pb-2 pt-2">
                                         @if (isset($proposal->bab4->file_skpi) && trim($proposal->bab4->file_skpi) !== '')
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab4->file_skpi)) }}"
+                                            <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab4->file_skpi)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                     class="fas fa-file-pdf text-white"></i></a>
                                         @else

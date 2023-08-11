@@ -70,7 +70,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_ijin_operasional_pt)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
+                                                        <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -103,7 +103,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_status_akreditasi_institusi)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}"
+                                                        <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -194,7 +194,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_ijin_operasional_pt_mitra)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
+                                                        <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_pt_mitra)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -227,7 +227,7 @@
                                             <div class="input-group">
                                                 <div class=" pt-1">
                                                     @isset($proposal->bab1->scan_status_akreditasi_institusi_mitra)
-                                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}"
+                                                        <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_status_akreditasi_institusi_mitra)) }}"
                                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                     @else
@@ -334,7 +334,7 @@
                                         <div class="pt-2">
 
                                             @isset($proposal->bab1->scan_sk_akreditasi_prodi)
-                                                <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
+                                                <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi)) }}"
                                                     class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                             @else
@@ -351,7 +351,7 @@
                                     <div class="pt-2">
 
                                         @isset($proposal->bab1->scan_sk_akreditasi_prodi_mitra)
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
+                                            <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_sk_akreditasi_prodi_mitra)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -368,7 +368,7 @@
                                     <div class="text-bold">PT</div>
                                     <div class="pt-2">
                                         @isset($proposal->bab1->scan_ijin_operasional_prodi)
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
+                                            <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -381,7 +381,7 @@
                                     <div class="text-bold">PT Mitra</div>
                                     <div class="pt-2">
                                         @isset($proposal->bab1->scan_ijin_operasional_prodi_mitra)
-                                            <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
+                                            <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_ijin_operasional_prodi_mitra)) }}"
                                                 class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                         @else
@@ -413,7 +413,7 @@
                                 </div>
                                 <div class="col-sm-8 pt-1">
                                     @isset($proposal->bab1->proposal_usulan_kerjsama)
-                                        <a href="{{ route('admin.proposal.download', encrypt($proposal->bab1->scan_proposal_usulan_kerjsama)) }}"
+                                        <a target="_blank" href= "{{ route('admin.proposal.download', encrypt($proposal->bab1->proposal_usulan_kerjsama)) }}"
                                             class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                     @else

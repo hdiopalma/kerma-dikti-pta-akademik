@@ -89,7 +89,7 @@
                                             <div class="text-bold">Perguruan Tinggi</div>
                                             <div id="DataDosenPT" class="pb-2 pt-2 pl-0 pr-2 border-right">
                                                 @if (isset($proposal->bab3->file_data_dosen_terlibat_pt) && trim($proposal->bab3->file_data_dosen_terlibat_pt) !== '')
-                                                    <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_data_dosen_terlibat_pt)) }}"
+                                                    <a target="_blank" href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_data_dosen_terlibat_pt)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -104,7 +104,7 @@
                                             <div id="DataDosenPTMitra" class="pb-2 pt-2">
                                                 @if (isset($proposal->bab3->file_data_dosen_terlibat_mitra) &&
                                                         trim($proposal->bab3->file_data_dosen_terlibat_mitra) !== '')
-                                                    <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_data_dosen_terlibat_mitra)) }}"
+                                                    <a target="_blank" href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_data_dosen_terlibat_mitra)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -172,7 +172,7 @@
                                             <div id="SaranaPrasaranaPT" class="pb-2 pt-2 pl-0 pr-2 border-right">
                                                 @if (isset($proposal->bab3->file_lampiran_sarana_prasarana_pt) &&
                                                         trim($proposal->bab3->file_lampiran_sarana_prasarana_pt) !== '')
-                                                    <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_lampiran_sarana_prasarana_pt)) }}"
+                                                    <a target="_blank" href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_lampiran_sarana_prasarana_pt)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
@@ -187,7 +187,7 @@
                                             <div id="SaranaPrasaranaPTMitra" class="pb-2 pt-2">
                                                 @if (isset($proposal->bab3->file_lampiran_sarana_prasarana_mitra) &&
                                                         trim($proposal->bab3->file_lampiran_sarana_prasarana_mitra) !== '')
-                                                    <a href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_lampiran_sarana_prasarana_mitra)) }}"
+                                                    <a target="_blank" href="{{ route('verifikator.proposal.download', encrypt($proposal->bab3->file_lampiran_sarana_prasarana_mitra)) }}"
                                                         class="btn btn-primary btn-sm">Download <i
                                                             class="fas fa-file-pdf text-white"></i></a>
                                                 @else
