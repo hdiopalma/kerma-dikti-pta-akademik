@@ -34,6 +34,9 @@ class ProposalDataTable extends DataTable
             ->editColumn('action', function ($data) {
                 $button = '<a href="' . route('verifikator.proposal.show', encrypt($data->id)) . '" class="btn btn-sm btn-primary mx-1 shadow edit">Detail</a>';
                 return $button;
+            })
+            ->editColumn('tanggal_pengajuan', function ($data) {
+                return date('d-m-Y', strtotime($data->tanggal_pengajuan));
             });
     }
 
@@ -45,7 +48,7 @@ class ProposalDataTable extends DataTable
      */
     public function query(Proposal $model): QueryBuilder
     {
-        $query = $model->newQuery()->with('statusBerkas')
+        $query = $model->newQuery()->with('statusBerkas','universitas')
                 ->where('proposal.id_verifikator',auth()->user()->id_verifikator);
         return $query;
     }
@@ -64,13 +67,55 @@ class ProposalDataTable extends DataTable
                     //->dom('Bfrtip')
                     ->orderBy(1)
                     ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                    ->parameters([
+                        //Add filter column using dropdown select menu and 
+                        'initComplete' => 'function () {
+                            this.api().columns([4, 3, 5, 6,7]).every(function () {
+                                var column = this;
+                                var select = $(\'<select class="form-control"><option value="">Semua</option></select>\')
+                                    .appendTo($(column.footer()).empty())
+                                    .on(\'change\', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+                                        column
+                                            .search(val ? \'^\' + val + \'$\' : \'\', true, false)
+                                            .draw();
+                                    });
+                        
+                                if (column.index() === 5) {
+                                    // If column index is 5 (column 5), use a date picker input
+                                    var input = $(\'<input type="date" class="form-control">\')
+                                        .appendTo($(column.footer()).empty())
+                                        .on(\'change\', function () {
+                                            column
+                                                .search(this.value, true, false)
+                                                .draw();
+                                        });
+                                } else {
+                                    // For other columns, use the select dropdown as before
+                                    column.data().unique().sort().each(function (d, j) {
+                                        select.append(\'<option value="\' + d + \'">\' + d + \'</option>\');
+                                    });
+                                }
+                            });
+                        
+                            // Add "Saring data" text under column 2
+                            var column2Footer = this.api().columns([2]).footer();
+                            $(column2Footer).append(\'<div class="text-right pt-2 pr-1">Saring data</div>\');
+
+                            var table = this;
+                            var lastColumnFooter = table.api().columns([8]).footer();
+                            
+                            $(lastColumnFooter).append(\'<button class="btn btn-md btn-outline-secondary clear-filters">Clear</button>\');
+
+                            // Handle clear filters button click event
+                            $(lastColumnFooter).on(\'click\', \'.clear-filters\', function () {
+                                table.api().columns().search(\'\').draw();
+                            });
+
+                            
+                        }'
                     ]);
     }
 
@@ -84,8 +129,9 @@ class ProposalDataTable extends DataTable
         return [
             //add numbering
             Column::computed('no')->title('No.')->width(30)->addClass('text-center'),
-            Column::make('id')->hidden(),
+            Column::make('id', 'proposal.id')->hidden(),
             Column::make('judul'),
+            Column::make('universitas.nama_universitas','universitas.nama_universitas')->title('PT'),
             Column::make('pt_mitra_negeri')->title('Mitra'),
             Column::make('tanggal_pengajuan')->title('Tanggal Draft'),
             Column::make('status_pengisian')->title('Status Pengisian'),
@@ -95,7 +141,6 @@ class ProposalDataTable extends DataTable
                 ->printable(false)
                 ->addClass('text-center')
                 ->title('Aksi')
-                ->footer('Aksi')
                 ->orderable(false)
                 ->searchable(false)
         ];

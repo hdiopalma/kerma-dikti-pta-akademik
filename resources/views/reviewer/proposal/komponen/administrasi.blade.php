@@ -25,7 +25,7 @@
                     <h6 class="text-bold">BAB 1 :</h6>
                 </div>
                 <div class="col-6 text-left">
-                    <h6><span class="card-text text-success text-bold">{!! $reviewer['bab1']->status_proposal ?? 'Belum di review<code>*</code>' !!}</span></h6>
+                    <h6><span class="card-text">{!! isset($reviewer['bab1']->id) ? '<b class = "text-success">Sudah di review</b>' : '<b class = "text-danger">Belum di review</b>' !!}</span></h6>
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
                     <h6 class="text-bold">BAB 2 :</h6>
                 </div>
                 <div class="col-6 text-left">
-                    <h6><span class="card-text text-success text-bold">{!! $reviewer['bab2']->status_proposal ?? 'Belum di review<code>*</code>' !!}</span></h6>
+                    <h6><span class="card-text">{!! isset($reviewer['bab2']->id) ? '<b class = "text-success">Sudah di review</b>' : '<b class = "text-danger">Belum di review</b>' !!}</span></h6>
                 </div>
             </div>
 
@@ -45,7 +45,7 @@
                     <h6 class="text-bold">BAB 3 :</h6>
                 </div>
                 <div class="col-6 text-left">
-                    <h6><span class="card-text text-success text-bold">{!! $reviewer['bab3']->status_proposal ?? 'Belum di review<code>*</code>' !!}</span></h6>
+                    <h6><span class="card-text">{!! isset($reviewer['bab3']->id) ? '<b class = "text-success">Sudah di review</b>' : '<b class = "text-danger">Belum di review</b>' !!}</span></h6>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                     <h6 class="text-bold">BAB 4 :</h6>
                 </div>
                 <div class="col-6 text-left">
-                    <h6><span class="card-text text-success text-bold">{!! $reviewer['bab4']->status_proposal ?? 'Belum di review<code>*</code>' !!}</span></h6>
+                    <h6><span class="card-text">{!! isset($reviewer['bab4']->id) ? '<b class = "text-success">Sudah di review</b>' : '<b class = "text-danger">Belum di review</b>' !!}</span></h6>
                 </div>
             </div>
 
@@ -68,10 +68,10 @@
                 </div>
             </div>
 
-            @if (optional($reviewer['bab1'])->status_proposal &&
-                    optional($reviewer['bab2'])->status_proposal &&
-                    optional($reviewer['bab3'])->status_proposal &&
-                    optional($reviewer['bab4'])->status_proposal)
+            @if (isset($reviewer['bab1']->id) &&
+                    isset($reviewer['bab2']->id) &&
+                    isset($reviewer['bab3']->id) &&
+                    isset($reviewer['bab4']->id))
                 <!-- Ajukan Review with Modal -->
                 <div class="row">
                     <div class="col-12 col-md-12 col-sm-12">
@@ -112,10 +112,10 @@
 
 @push('modals')
 
-    @if (optional($reviewer['bab1'])->status_proposal &&
-            optional($reviewer['bab2'])->status_proposal &&
-            optional($reviewer['bab3'])->status_proposal &&
-            optional($reviewer['bab4'])->status_proposal)
+    @if (isset($reviewer['bab1']->id) &&
+            isset($reviewer['bab2']->id) &&
+            isset($reviewer['bab3']->id) &&
+            isset($reviewer['bab4']->id))
         <!-- Modal ajukanReview bootstrap 5 -->
         <div class="modal fade" id="ajukanReview" tabindex="-1" aria-labelledby="ajukanReviewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -126,6 +126,10 @@
                         action="{{ route('reviewer.proposal.simpanReviewProposal') }}">
                         @csrf
                         <input type="hidden" name="id_proposal" value="{{ encrypt($proposal->id) }}">
+                        <input type="hidden" name="id_reviewerBab1" value="{{ encrypt($reviewer['bab1']->id) }}">
+                        <input type="hidden" name="id_reviewerBab2" value="{{ encrypt($reviewer['bab2']->id) }}">
+                        <input type="hidden" name="id_reviewerBab3" value="{{ encrypt($reviewer['bab3']->id) }}">
+                        <input type="hidden" name="id_reviewerBab4" value="{{ encrypt($reviewer['bab4']->id) }}">
                         <div class="modal-header">
                             <h5 class="modal-title" id="ajukanReviewLabel">Ajukan Hasil Review</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

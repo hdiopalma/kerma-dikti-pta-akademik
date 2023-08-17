@@ -34,6 +34,9 @@ class ProposalDataTable extends DataTable
             ->editColumn('action', function ($data) {
                 $button = '<a href="' . route('reviewer.proposal.show', encrypt($data->id)) . '" class="btn btn-sm btn-primary mx-1 shadow edit">Detail</a>';
                 return $button;
+            })
+            ->editColumn('tanggal_pengajuan', function ($data) {
+                return date('d-m-Y', strtotime($data->tanggal_pengajuan));
             });
     }
 

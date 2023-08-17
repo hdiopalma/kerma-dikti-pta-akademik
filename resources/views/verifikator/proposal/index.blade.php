@@ -19,7 +19,7 @@
         </div>
 
         <div class="card-body">
-            {{ $dataTable->table(['id' => 'proposal-table', 'class' => 'table table-striped table-hover']) }}
+            {{ $dataTable->table(['id' => 'proposal-table', 'class' => 'table table-striped table-hover'], true) }}
         </div>
     </div>
 @endsection

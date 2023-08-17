@@ -56,6 +56,7 @@ class ProposalController extends Controller
                         ->first(),
         ];    
 
+        //Nanti disesuaikan dengan database
         $status_proposal = ['' => '-- Pilih Status --', 12 => 'Revisi', 18 => 'Disetujui', 15 => 'Ditolak'];
     
         return view('reviewer.proposal.show', ['proposal' => $proposal, 'reviewer' => $reviewer, 'status_proposal' => $status_proposal]);
@@ -153,7 +154,7 @@ class ProposalController extends Controller
             'komentar_scan_ijin_operasional_prodi_mitra' => ['required', 'max:1800'],
             'komentar_proposal_usulan_kerjsama' => ['required', 'max:1800'],
             'komentar_bab1' => ['required', 'max:1800'],
-            'status_proposal' => ['required'],
+            //'status_proposal' => ['required'],
         ];
 
         //Custom validation messages
@@ -202,7 +203,7 @@ class ProposalController extends Controller
                         'scan_ijin_operasional_prodi_mitra' => $request->komentar_scan_ijin_operasional_prodi_mitra,
                         'proposal_usulan_kerjsama' => $request->komentar_proposal_usulan_kerjsama,
                         'komentar_bab1' => $request->komentar_bab1,
-                        'status_proposal' => $request->status_proposal,
+                        //'status_proposal' => $request->status_proposal,
                     ]);
 
                     //redirect to bab2
@@ -240,7 +241,7 @@ class ProposalController extends Controller
             'komentar_keberlanjutan_kerjsama' => ['required', 'max:1800'],
             'komentar_hak_dan_kewajiban' => ['required', 'max:1800'],
             'komentar_hak_tercantum' => ['required', 'max:1800'],
-            'status_proposal' => ['required'],
+            //'status_proposal' => ['required'],
             'komentar_bab2' => ['required', 'max:1800']
         ];
 
@@ -279,7 +280,7 @@ class ProposalController extends Controller
                     'keberlanjutan_kerjsama' => $request->komentar_keberlanjutan_kerjsama,
                     'hak_dan_kewajiban' => $request->komentar_hak_dan_kewajiban,
                     'hak_tercantum' => $request->komentar_hak_tercantum,
-                    'status_proposal' => $request->status_proposal,
+                    //'status_proposal' => $request->status_proposal,
                     'komentar_bab2' => $request->komentar_bab2
                     
                 ]);
@@ -310,7 +311,7 @@ class ProposalController extends Controller
             'komentar_deskripsi_singkat_mitra' => ['required', 'max:1800'],
             'komentar_file_lampiran_sarana_prasarana_pt' => ['required', 'max:1800'],
             'komentar_file_lampiran_sarana_prasarana_mitra' => ['required', 'max:1800'],
-            'status_proposal' => ['required'],
+            //'status_proposal' => ['required'],
             'komentar_bab3' => ['required', 'max:1800']
         ];
 
@@ -340,7 +341,7 @@ class ProposalController extends Controller
                     'deskripsi_singkat_mitra' => $request->komentar_deskripsi_singkat_mitra,
                     'file_lampiran_sarana_prasarana_pt' => $request->komentar_file_lampiran_sarana_prasarana_pt,
                     'file_lampiran_sarana_prasarana_mitra' => $request->komentar_file_lampiran_sarana_prasarana_mitra,
-                    'status_proposal' => $request->status_proposal,
+                    //'status_proposal' => $request->status_proposal,
                     'komentar_bab3' => $request->komentar_bab3
                 ]);
 
@@ -376,7 +377,7 @@ class ProposalController extends Controller
             'komentar_file_skpi' => ['required', 'max:1800'],
             'komentar_keberlanjutan_studi_lanjut' => ['required', 'max:1800'],
             'komentar_studi_lanjut_moa' => ['required', 'max:1800'],
-            'status_proposal' => ['required'],
+            //'status_proposal' => ['required'],
             'komentar_bab4' => ['required', 'max:1800']
         ];
 
@@ -413,7 +414,7 @@ class ProposalController extends Controller
                     'file_skpi' => $request->komentar_file_skpi,
                     'keberlanjutan_studi_lanjut' => $request->komentar_keberlanjutan_studi_lanjut,
                     'studi_lanjut_moa' => $request->komentar_studi_lanjut_moa,
-                    'status_proposal' => $request->status_proposal,
+                    //'status_proposal' => $request->status_proposal,
                     'komentar_bab4' => $request->komentar_bab4
                 ]);
                 
@@ -427,6 +428,12 @@ class ProposalController extends Controller
 
     public function simpanReviewProposal(Request $request){
         $id_proposal = decrypt($request->id_proposal);
+        $id_reviewerBab1 = decrypt($request->id_reviewerBab1);
+        $id_reviewerBab2 = decrypt($request->id_reviewerBab2);
+        $id_reviewerBab3 = decrypt($request->id_reviewerBab3);
+        $id_reviewerBab4 = decrypt($request->id_reviewerBab4);
+
+        $statusBerkas = statusBerkas::where('id', $request->status_proposal)->first();
 
         $rules = ['status_proposal' => ['required'], 'komentar' => ['required', 'max:1800']];
         $messages = ['required' => 'Kolom :attribute tidak boleh kosong!', 'max' => 'Kolom :attribute tidak boleh lebih dari :max karakter!'];
@@ -439,6 +446,20 @@ class ProposalController extends Controller
             $proposal->id_status_berkas = $request->status_proposal;
             $proposal->komentar = $request->komentar;
             $proposal->save();
+
+            $reviewerBab = [
+                ReviewerBab1::class => $id_reviewerBab1,
+                ReviewerBab2::class => $id_reviewerBab2,
+                ReviewerBab3::class => $id_reviewerBab3,
+                ReviewerBab4::class => $id_reviewerBab4,
+            ];
+
+            foreach ($reviewerBab as $key => $value) {
+                $reviewerBab = $key::find($value);
+                $reviewerBab->status_proposal = $statusBerkas->status;
+                $reviewerBab->save();
+            }
+
             return redirect()->route('reviewer.proposal.show', encrypt($id_proposal))->with('success', 'Review proposal berhasil disimpan');
         } catch (\Throwable $th) {
             return response()->json($th);

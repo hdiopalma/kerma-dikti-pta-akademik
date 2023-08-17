@@ -1,31 +1,20 @@
 <div class="col-12 col-sm-12 col-md-12">
     <div class="card card-dark">
-        <!-- card-header
-        <div class="card-header bg-primary" role="button" data-card-widget="collapse">
-            <h3 class="card-title" style="margin: 2px">
-                <i class="fas fa-edit"></i> Navigasi Bab
-            </h3>
-            <div class="card-tools">
-                <button
-                    type="button"
-                    class="btn btn-tool"
-                    data-card-widget="collapse"
-                >
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button
-                    type="button"
-                    class="btn btn-tool"
-                    data-card-widget="remove"
-                >
-                    <i class="fas fa-times"></i>
-                </button>
+        @isset($hasilReview)
+            <div class="card-header bg-primary" role="button" data-card-widget="collapse">
+                <h3 class="card-title" style="margin: 2px">
+                    <i class="fas fa-edit"></i> Periksa Hasil Review
+                </h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        -->
+        @endisset
         <div class="card-body pb-0">
             <div class="row d-flex">
-                
+
                 <div class=" col-12 col-sm-6 col-md-3">
                     <div class="small-box {{ isset($bab) && $bab == 1 ? 'bg-warning' : 'bg-primary' }}">
                         <div class="inner">
@@ -35,11 +24,20 @@
                         <div class="icon">
                             <i class="fas fa-university"></i>
                         </div>
-                        <a href="{{ route('verifikator.proposal.viewBab1', encrypt($proposal->id)) }}"
-                            class="small-box-footer">
-                            Detail
-                            <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
-                        </a>
+
+                        @isset($hasilReview)
+                            <a href="{{ route('verifikator.proposal.viewBab1', [encrypt($proposal->id), 'reviewer' => encrypt($hasilReview->id_reviewer)]) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <a href="{{ route('verifikator.proposal.viewBab1', encrypt($proposal->id)) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @endisset
                     </div>
                 </div>
                 <div class=" col-12 col-sm-6 col-md-3">
@@ -51,11 +49,19 @@
                         <div class="icon">
                             <i class="fas fa-folder-open"></i>
                         </div>
-                        <a href="{{ route('verifikator.proposal.viewBab2', encrypt($proposal->id)) }}"
-                            class="small-box-footer">
-                            Detail
-                            <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
-                        </a>
+                        @isset($hasilReview)
+                            <a href="{{ route('verifikator.proposal.viewBab2', [encrypt($proposal->id), 'reviewer' => encrypt($hasilReview->id_reviewer)]) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <a href="{{ route('verifikator.proposal.viewBab2', encrypt($proposal->id)) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @endisset
                     </div>
                 </div>
                 <div class=" col-12 col-sm-6 col-md-3">
@@ -67,11 +73,19 @@
                         <div class="icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <a href="{{ route('verifikator.proposal.viewBab3', encrypt($proposal->id)) }}"
-                            class="small-box-footer">
-                            Detail
-                            <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
-                        </a>
+                        @isset($hasilReview)
+                            <a href="{{ route('verifikator.proposal.viewBab3', [encrypt($proposal->id), 'reviewer' => encrypt($hasilReview->id_reviewer)]) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <a href="{{ route('verifikator.proposal.viewBab3', encrypt($proposal->id)) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @endisset
                     </div>
                 </div>
                 <div class=" col-12 col-sm-6 col-md-3">
@@ -83,11 +97,19 @@
                         <div class="icon">
                             <i class="fas fa-file-upload"></i>
                         </div>
-                        <a href="{{ route('verifikator.proposal.viewBab4', encrypt($proposal->id)) }}"
-                            class="small-box-footer">
-                            Detail
-                            <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
-                        </a>
+                        @isset($hasilReview)
+                            <a href="{{ route('verifikator.proposal.viewBab4', [encrypt($proposal->id), 'reviewer' => encrypt($hasilReview->id_reviewer)]) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @else
+                            <a href="{{ route('verifikator.proposal.viewBab4', encrypt($proposal->id)) }}"
+                                class="small-box-footer">
+                                Detail
+                                <i class="fas fa-fw fa-xs fa-arrow-circle-right"></i>
+                            </a>
+                        @endisset
                     </div>
                 </div>
             </div>

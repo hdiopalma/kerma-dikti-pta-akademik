@@ -133,6 +133,10 @@ Route::middleware('auth')->group(function(){
 
             //verifikasi
             Route::post('verifikasi','verifikasi')->name('verifikator.proposal.verifikasi');
+            
+            Route::post('tolak','tolakProposal')->name('verifikator.proposal.tolak');
+            Route::post('revisi','revisiProposal')->name('verifikator.proposal.revisi');
+            Route::post('setujui','setujuiProposal')->name('verifikator.proposal.setujui');
 
             //Download path, not yet implemented, placeholder
             Route::get('/download/{id}','download')->name('verifikator.proposal.download');

@@ -34,7 +34,10 @@ class ProposalDataTable extends DataTable
                 return $button;
             })
             ->setRowId('proposal.id')
-            ->addIndexColumn();
+            ->addIndexColumn()
+            ->editColumn('tanggal_pengajuan', function ($data) {
+                return date('d-m-Y', strtotime($data->tanggal_pengajuan));
+            });
     }
 
     /**

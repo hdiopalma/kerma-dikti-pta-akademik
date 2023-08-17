@@ -21,16 +21,72 @@
             </div>
             <div class="row">
                 <div class="col-12 col-md-12 col-sm-12">
-                    <a type="button" class="btn btn-primary btn-md btn-block" href="{{ route('verifikator.proposal.viewBab1', encrypt($proposal->id)) }}">
+                    <a type="button" class="btn btn-primary btn-md btn-block"
+                        href="{{ route('verifikator.proposal.viewBab1', encrypt($proposal->id)) }}">
                         <i class="fas fa-file-alt"></i>&nbsp;
-                Periksa Proposal
-                </a>
+                        Periksa Proposal
+                    </a>
                 </div>
             </div>
-            
+
+            @if (optional($hasil_review1['bab1'])->id != null &&
+                    optional($hasil_review1['bab2'])->id != null &&
+                    optional($hasil_review1['bab3'])->id != null &&
+                    optional($hasil_review1['bab4'])->id != null)
+            <hr>
+
+            <div class="row">
+                <div class="col-5 col-md-12 col-sm-4">
+                    <h6 class="text-bold">Reviewer 1:</h6>
+                </div>
+                <div class="col-6 col-md-12 text-left">
+                    <h6><span class="card-text text-primary text-bold">{{ $proposal->reviewer1->nama_reviewer }}</span>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="row pt-2">
+                <div class="col-12 col-md-12 col-sm-12">
+                    <a type="button" class="btn btn-warning btn-md btn-block"
+                        href="{{ route('verifikator.proposal.viewBab1', [encrypt($proposal->id), 'reviewer' => encrypt($proposal->reviewer1->id)]) }}"> 
+                        <i class="fas fa-file-alt"></i>&nbsp;
+                        Periksa Hasil Review
+                    </a>
+                </div>
+            </div>
+
+            @endif
+
+            @if (optional($hasil_review2['bab1'])->id != null &&
+                    optional($hasil_review2['bab2'])->id != null &&
+                    optional($hasil_review2['bab3'])->id != null &&
+                    optional($hasil_review2['bab4'])->id != null)
+                <hr>
+
+                <div class="row">
+                    <div class="col-5 col-md-12 col-sm-4">
+                        <h6 class="text-bold">Reviewer 2:</h6>
+                    </div>
+                    <div class="col-6 col-md-12 text-left">
+                        <h6><span
+                                class="card-text text-primary text-bold">{{ $proposal->reviewer2->nama_reviewer }}</span>
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row pt-2">
+                    <div class="col-12 col-md-12 col-sm-12">
+                        <a type="button" class="btn btn-warning btn-md btn-block"
+                            href="{{ route('verifikator.proposal.viewBab1', encrypt($proposal->id)) }}">
+                            <i class="fas fa-file-alt"></i>&nbsp;
+                            Periksa Hasil Review
+                        </a>
+                    </div>
+                </div>
+            @endif
+
         </div>
         <!-- /.Status Berkas Proposal -->
         <hr style="margin: 0px">
     </div>
 </div>
-

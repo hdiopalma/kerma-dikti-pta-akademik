@@ -640,6 +640,7 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
+                            <!--
                             <div class="col-sm-4 col-form-label text-bold">Status Proposal BAB 4</div>
                             <div class="col-sm-8">
                                 <select name="status_proposal" id="status_proposal"
@@ -664,7 +665,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-sm-4 col-xs-12 col-form-label text-bold mt-3">Review BAB 4</div>
+                        -->
+                            <div class="col-sm-4 col-xs-12 col-form-label text-bold">Review BAB 4</div>
                             <div class="col-sm-8 col-xs-12 mt-3 mb-0">
                                 <!-- Text area komentar bab4 -->
                                 <textarea id="KomentarBab2" name="komentar_bab4" class="form-control @error('komentar_bab4') is-invalid @enderror"
